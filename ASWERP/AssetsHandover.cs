@@ -26,6 +26,8 @@ namespace ASWERP
         private const string REGEX_ASSETNAME_R1 = "^ASWVNWKS[A-Z0-9]+$";
         private const string REGEX_ASSETNAME_R2 = "^ASWVNMON[A-Z0-9]+$";
         private const string REGEX_ASSETNAME_R3 = "^ASW2VNHEA[A-Z0-9]+$";
+        private const string REGEX_ASSETNAME_RD1 = "^ASW[A-Z0-9]+$";
+        private const string REGEX_ASSETNAME_RD2 = "^ASW2[A-Z0-9]+$";
         private Regex _Regex = null;
 
         private const int MaxDetailsRowCount = 5;
@@ -208,16 +210,16 @@ namespace ASWERP
             {
                 string _value = Convert.ToString(dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value);
 
-                if (!_value.ToLower().Contains("aswvnwks"))
-                    dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value = String.Format("ASWVNWKS{0}", String.Empty).ToUpper();
+                if (!_value.ToLower().Contains("asw"))
+                    dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value = String.Format("ASW{0}", String.Empty).ToUpper();
             }
 
             if (dvgAssetHandoverDetails.Columns[e.ColumnIndex].Name.Equals("AssetName") && e.RowIndex == 1)
             {
                 string _value = Convert.ToString(dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value);
 
-                if (!_value.ToLower().Contains("aswvnmon"))
-                    dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value = String.Format("ASWVNMON{0}", String.Empty).ToUpper();
+                if (!_value.ToLower().Contains("asw"))
+                    dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value = String.Format("ASW{0}", String.Empty).ToUpper();
             }
 
             if (dvgAssetHandoverDetails.Columns[e.ColumnIndex].Name.Equals("AssetName") && e.RowIndex == 2)
@@ -225,8 +227,8 @@ namespace ASWERP
                 _Regex = new Regex(REGEX_ASSETNAME_R3);
                 string _value = Convert.ToString(dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value);
 
-                if (!_value.ToLower().Contains("asw2vnhea"))
-                    dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value = String.Format("ASW2VNHEA{0}", String.Empty).ToUpper();
+                if (!_value.ToLower().Contains("asw2"))
+                    dvgAssetHandoverDetails.Rows[e.RowIndex].Cells["AssetName"].Value = String.Format("ASW2{0}", String.Empty).ToUpper();
             }
         }
 

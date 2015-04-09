@@ -42,5 +42,21 @@ namespace ASWERP
                 MessageBox.Show("User name or passwords incorrect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private void Login_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void Login_Shown(object sender, EventArgs e)
+        {
+            txtUserName.Text = String.Empty;
+            txtPasswords.Text = String.Empty;
+        }
+
+        private void Login_VisibleChanged(object sender, EventArgs e)
+        {
+            txtUserName.Text = String.Empty;
+            txtPasswords.Text = String.Empty;
+        }
+
     }
 }

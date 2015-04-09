@@ -34,16 +34,16 @@
             this.exitMnuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvAssets = new System.Windows.Forms.DataGridView();
+            this.cmsDvgAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsttDoSearch = new System.Windows.Forms.ToolStripTextBox();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.XLite = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComputerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ComputerType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ComputerType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmailAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.More = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.cmsDvgAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsttDoSearch = new System.Windows.Forms.ToolStripTextBox();
             this.msMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).BeginInit();
             this.cmsDvgAssets.SuspendLayout();
@@ -108,6 +108,29 @@
             this.dgvAssets.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvAssets_UserAddedRow);
             this.dgvAssets.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvAssets_UserDeletedRow);
             // 
+            // cmsDvgAssets
+            // 
+            this.cmsDvgAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiRemove});
+            this.cmsDvgAssets.Name = "cmsDvgAssets";
+            this.cmsDvgAssets.Size = new System.Drawing.Size(127, 26);
+            // 
+            // tsmiRemove
+            // 
+            this.tsmiRemove.Name = "tsmiRemove";
+            this.tsmiRemove.Size = new System.Drawing.Size(126, 22);
+            this.tsmiRemove.Text = "Remove...";
+            this.tsmiRemove.Click += new System.EventHandler(this.tsmiRemove_Click);
+            // 
+            // tsttDoSearch
+            // 
+            this.tsttDoSearch.AcceptsReturn = true;
+            this.tsttDoSearch.Name = "tsttDoSearch";
+            this.tsttDoSearch.Size = new System.Drawing.Size(100, 23);
+            this.tsttDoSearch.Leave += new System.EventHandler(this.tsttDoSearch_Leave);
+            this.tsttDoSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsttDoSearch_KeyDown);
+            this.tsttDoSearch.TextChanged += new System.EventHandler(this.tsttDoSearch_TextChanged);
+            // 
             // Id
             // 
             this.Id.DataPropertyName = "Id";
@@ -141,12 +164,8 @@
             // 
             this.ComputerType.DataPropertyName = "ComputerType";
             this.ComputerType.HeaderText = "";
-            this.ComputerType.Items.AddRange(new object[] {
-            "Dell Inspiron 3847",
-            "Lap HP Pro 4320s"});
             this.ComputerType.Name = "ComputerType";
             this.ComputerType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ComputerType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.ComputerType.Width = 250;
             // 
             // EmailAddress
@@ -163,29 +182,6 @@
             this.More.Text = "More...";
             this.More.ToolTipText = "Click here for more information";
             this.More.UseColumnTextForLinkValue = true;
-            // 
-            // cmsDvgAssets
-            // 
-            this.cmsDvgAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiRemove});
-            this.cmsDvgAssets.Name = "cmsDvgAssets";
-            this.cmsDvgAssets.Size = new System.Drawing.Size(127, 26);
-            // 
-            // tsmiRemove
-            // 
-            this.tsmiRemove.Name = "tsmiRemove";
-            this.tsmiRemove.Size = new System.Drawing.Size(126, 22);
-            this.tsmiRemove.Text = "Remove...";
-            this.tsmiRemove.Click += new System.EventHandler(this.tsmiRemove_Click);
-            // 
-            // tsttDoSearch
-            // 
-            this.tsttDoSearch.AcceptsReturn = true;
-            this.tsttDoSearch.Name = "tsttDoSearch";
-            this.tsttDoSearch.Size = new System.Drawing.Size(100, 23);
-            this.tsttDoSearch.Leave += new System.EventHandler(this.tsttDoSearch_Leave);
-            this.tsttDoSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsttDoSearch_KeyDown);
-            this.tsttDoSearch.TextChanged += new System.EventHandler(this.tsttDoSearch_TextChanged);
             // 
             // Main
             // 
@@ -219,16 +215,16 @@
         private System.Windows.Forms.ToolStripMenuItem exitMnuItem;
         private System.Windows.Forms.DataGridView dgvAssets;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip cmsDvgAssets;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRemove;
+        private System.Windows.Forms.ToolStripTextBox tsttDoSearch;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn XLite;
         private System.Windows.Forms.DataGridViewTextBoxColumn ComputerName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ComputerType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ComputerType;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmailAddress;
         private System.Windows.Forms.DataGridViewLinkColumn More;
-        private System.Windows.Forms.ContextMenuStrip cmsDvgAssets;
-        private System.Windows.Forms.ToolStripMenuItem tsmiRemove;
-        private System.Windows.Forms.ToolStripTextBox tsttDoSearch;
 
     }
 }

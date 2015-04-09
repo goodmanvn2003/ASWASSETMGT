@@ -15,6 +15,8 @@ namespace ASWERP.Models
     {
         public static string appPath = Path.GetDirectoryName(Application.ExecutablePath);
         public static string dbPath = Path.Combine(appPath, "Database");
+        public static string documentsPath = Path.Combine(appPath, "Documents");
+        public static string templatePath = Path.Combine(appPath, "Templates");
         public static string dbFilePath = Path.Combine(dbPath, "db.json");
         public static string emPath = Path.Combine(appPath, "Database", "em");
 
@@ -26,6 +28,10 @@ namespace ASWERP.Models
                 Directory.CreateDirectory(emPath);
             if (!File.Exists(dbFilePath))
                 File.Create(dbFilePath);
+            if (!Directory.Exists(templatePath))
+                Directory.CreateDirectory(templatePath);
+            if (!Directory.Exists(documentsPath))
+                Directory.CreateDirectory(documentsPath);
         }
 
         public static DataTable ReadDatabase()
