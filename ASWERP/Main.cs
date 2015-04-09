@@ -170,5 +170,32 @@ namespace ASWERP
         {
             
         }
+
+        private void tsttDoSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string _key = tsttDoSearch.Text.Trim();
+
+                dgvAssets.DataSource = Loader.ReadDatabaseWithSearch(_key);
+            }
+        }
+
+        private void tsttDoSearch_TextChanged(object sender, EventArgs e)
+        {
+            string _key = tsttDoSearch.Text.Trim();
+            if (_key.Length == 0)
+                dgvAssets.DataSource = Loader.ReadDatabase();
+        }
+
+        private void tsttDoSearch_Leave(object sender, EventArgs e)
+        {
+            dgvAssets.DataSource = Loader.ReadDatabase();
+        }
+
+        private void searchToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
+        {
+            dgvAssets.DataSource = Loader.ReadDatabase();
+        }
     }
 }

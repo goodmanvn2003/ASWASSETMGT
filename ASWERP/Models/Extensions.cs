@@ -32,6 +32,14 @@ namespace ASWERP.Models
             return table;
         }
 
+        public static string DisplayDate(this DateTime? value, string format)
+        {
+            if (value.HasValue)
+                return String.Format(format, value.Value);
+            else
+                return String.Empty;
+        }
+
         public static bool IsUpper(this string value)
         {
             // Consider string to be uppercase if it has no lowercase letters.

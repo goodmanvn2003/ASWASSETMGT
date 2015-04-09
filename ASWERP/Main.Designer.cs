@@ -43,6 +43,7 @@
             this.More = new System.Windows.Forms.DataGridViewLinkColumn();
             this.cmsDvgAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsttDoSearch = new System.Windows.Forms.ToolStripTextBox();
             this.msMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).BeginInit();
             this.cmsDvgAssets.SuspendLayout();
@@ -76,9 +77,12 @@
             // 
             // searchToolStripMenuItem
             // 
+            this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsttDoSearch});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.searchToolStripMenuItem.Text = "Search";
+            this.searchToolStripMenuItem.DropDownClosed += new System.EventHandler(this.searchToolStripMenuItem_DropDownClosed);
             // 
             // dgvAssets
             // 
@@ -174,6 +178,15 @@
             this.tsmiRemove.Text = "Remove...";
             this.tsmiRemove.Click += new System.EventHandler(this.tsmiRemove_Click);
             // 
+            // tsttDoSearch
+            // 
+            this.tsttDoSearch.AcceptsReturn = true;
+            this.tsttDoSearch.Name = "tsttDoSearch";
+            this.tsttDoSearch.Size = new System.Drawing.Size(100, 23);
+            this.tsttDoSearch.Leave += new System.EventHandler(this.tsttDoSearch_Leave);
+            this.tsttDoSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsttDoSearch_KeyDown);
+            this.tsttDoSearch.TextChanged += new System.EventHandler(this.tsttDoSearch_TextChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,6 +228,7 @@
         private System.Windows.Forms.DataGridViewLinkColumn More;
         private System.Windows.Forms.ContextMenuStrip cmsDvgAssets;
         private System.Windows.Forms.ToolStripMenuItem tsmiRemove;
+        private System.Windows.Forms.ToolStripTextBox tsttDoSearch;
 
     }
 }

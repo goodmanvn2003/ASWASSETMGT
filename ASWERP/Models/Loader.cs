@@ -14,15 +14,44 @@ namespace ASWERP.Models
     public class Loader
     {
         public static string appPath = Path.GetDirectoryName(Application.ExecutablePath);
+        public static string dbPath = Path.Combine(appPath, "Database");
+        public static string dbFilePath = Path.Combine(dbPath, "db.json");
+        public static string emPath = Path.Combine(appPath, "Database", "em");
+
+        public static void Initilize()
+        {
+            if (!Directory.Exists(dbPath))
+                Directory.CreateDirectory(dbPath);
+            if (!Directory.Exists(emPath))
+                Directory.CreateDirectory(emPath);
+            if (!File.Exists(dbFilePath))
+                File.Create(dbFilePath);
+        }
 
         public static DataTable ReadDatabase()
         {
             try
             {
-                var json = File.ReadAllText(Path.Combine(appPath, "Database", "db.json")); 
+                var json = File.ReadAllText(dbFilePath); 
             
                 return JsonConvert.DeserializeObject<List<AssetVM>>(json).ToDataTable<AssetVM>();
             } catch (Exception ex)
+            {
+                return new DataTable();
+            }
+        }
+
+        public static DataTable ReadDatabaseWithSearch(string key)
+        {
+            try
+            {
+                var json = File.ReadAllText(dbFilePath);
+
+                var _list = JsonConvert.DeserializeObject<List<AssetVM>>(json);
+
+                return _list.Where(x => x.Id.ToLower() == key.ToLower() || x.EmployeeName.ToLower().Contains(key.ToLower())).ToList().ToDataTable<AssetVM>();
+            }
+            catch (Exception ex)
             {
                 return new DataTable();
             }
@@ -32,7 +61,7 @@ namespace ASWERP.Models
         {
             try
             {
-                var json = File.ReadAllText(Path.Combine(appPath, "Database", "em", String.Format("{0}.json", id.Trim())));
+                var json = File.ReadAllText(Path.Combine(emPath, String.Format("{0}.json", id.Trim())));
 
                 return JsonConvert.DeserializeObject<AssetsHandoverVM>(json);
             } catch (Exception ex)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace ASWERP
         private const string REGEX_ASSETNAME_R2 = "^ASWVNMON[A-Z0-9]+$";
         private const string REGEX_ASSETNAME_R3 = "^ASW2VNHEA[A-Z0-9]+$";
         private Regex _Regex = null;
+
+        private const int MaxDetailsRowCount = 5;
 
         private AssetsHandoverVM ViewModel = null;
 
@@ -78,7 +81,8 @@ namespace ASWERP
                 dvgAssetHandoverDetails.AutoGenerateColumns = false;
                 dvgAssetHandoverDetails.DataSource = ViewModel.Details.ToDataTable<AssetHandoverDetails>();
             }
-                
+
+            CheckRowCount();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -108,6 +112,8 @@ namespace ASWERP
 
             Saver ahSaver = new Saver();
             ahSaver.Invoke<AssetsHandoverVM>(Saver.TYPE_ASSETSHANDOVER, ViewModel);
+
+            MessageBox.Show("Information saved!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ExecuteSavingDetails()
@@ -134,8 +140,24 @@ namespace ASWERP
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            DocumentParser _parser = new DocumentParser(Path.Combine(Loader.appPath, "Templates", "test.doc"));
-            _parser.DoParse(Path.Combine(Loader.appPath, "Documents", String.Format("{0}.doc", "test")));
+            try
+            {
+                btnSave.PerformClick();
+
+                if (String.IsNullOrEmpty(ViewModel.Name))
+                    throw new Exception("Employee name must not be null or empty");
+
+                DocumentParser _parser = new DocumentParser(Path.Combine(Loader.appPath, "Templates", "AssetsHandoverTPL.doc"));
+                _parser.DoParse<AssetsHandoverVM>(DocumentParser.DOCUMENTTYPE_ASSETHANDOVER, Path.Combine(Loader.appPath, "Documents", String.Format("{0}.doc", ViewModel.Name.Trim())), ViewModel);
+
+                MessageBox.Show("Export completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Process.Start("explorer.exe", Path.Combine(Loader.appPath, "Documents", String.Format("{0}.doc", ViewModel.Name.Trim())));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There was an error when the request was processed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void dvgAssetHandoverDetails_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -280,13 +302,26 @@ namespace ASWERP
             
         }
 
+        private void CheckRowCount()
+        {
+            if (dvgAssetHandoverDetails.Rows != null && dvgAssetHandoverDetails.Rows.Count > MaxDetailsRowCount)
+            {
+                dvgAssetHandoverDetails.AllowUserToAddRows = false;
+            }
+            else if (!dvgAssetHandoverDetails.AllowUserToAddRows)
+            {
+                dvgAssetHandoverDetails.AllowUserToAddRows = true;
+            }
+        } 
+
         private void dvgAssetHandoverDetails_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
+            CheckRowCount();
         }
 
         private void dvgAssetHandoverDetails_UserAddedRow(object sender, DataGridViewRowEventArgs e)
         {
-            
+            CheckRowCount();
         }
     }
 }

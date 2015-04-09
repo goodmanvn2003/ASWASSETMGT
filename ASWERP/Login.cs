@@ -16,6 +16,9 @@ namespace ASWERP
         public Login()
         {
             InitializeComponent();
+
+            // Check for default directories and files
+            Loader.Initilize();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
