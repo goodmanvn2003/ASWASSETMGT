@@ -232,19 +232,9 @@ namespace ASWERP
             }
         }
 
-        private void dvgAssetHandoverDetails_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            /* if (e.RowIndex != dvgAssetHandoverDetails.NewRowIndex)
-                return;
+        private void dvgAssetHandoverDetails_CellEnter(object sender, DataGridViewCellEventArgs e) { }
 
-            dvgAssetHandoverDetails.Rows[e.RowIndex].Cells[0].Value = String.Format("{0}", Convert.ToString(dvgAssetHandoverDetails.Rows.Count)); */
-            
-        }
-
-        private void dvgAssetHandoverDetails_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
+        private void dvgAssetHandoverDetails_CellLeave(object sender, DataGridViewCellEventArgs e) { }
 
         private void cbxHandedoverBy_CheckedChanged(object sender, EventArgs e)
         {

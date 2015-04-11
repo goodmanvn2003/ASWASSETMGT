@@ -55,7 +55,7 @@ namespace ASWERP.Models
 
                 var _list = JsonConvert.DeserializeObject<List<AssetVM>>(json);
 
-                return _list.Where(x => x.Id.ToLower() == key.ToLower() || x.EmployeeName.ToLower().Contains(key.ToLower())).ToList().ToDataTable<AssetVM>();
+                return _list.Where(x => x.Id.ToLower() == key.ToLower() || x.EmployeeName.ToLower().Contains(key.ToLower()) || x.EmailAddress.ToLower().Contains(key.ToLower()) || x.ComputerName.ToLower().Contains(key.ToLower())).ToList().ToDataTable<AssetVM>();
             }
             catch (Exception ex)
             {

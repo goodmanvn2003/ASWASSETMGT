@@ -94,13 +94,16 @@ namespace ASWERP
         {
             if (dgvAssets.Columns[e.ColumnIndex].Name.Equals("More"))
             {
-                var id = dgvAssets.Rows[e.RowIndex].Cells["Id"].Value;
-                var employeeName = dgvAssets.Rows[e.RowIndex].Cells["EmployeeName"].Value;
+                if (e.RowIndex >= 0)
+                {
+                    var id = dgvAssets.Rows[e.RowIndex].Cells["Id"].Value;
+                    var employeeName = dgvAssets.Rows[e.RowIndex].Cells["EmployeeName"].Value;
 
-                AssetsHandover assetsHandover = new AssetsHandover(this, Convert.ToString(id), Convert.ToString(employeeName));
-                Forms.Add(assetsHandover);
+                    AssetsHandover assetsHandover = new AssetsHandover(this, Convert.ToString(id), Convert.ToString(employeeName));
+                    Forms.Add(assetsHandover);
 
-                assetsHandover.Show();
+                    assetsHandover.Show();
+                }
             }
         }
 
