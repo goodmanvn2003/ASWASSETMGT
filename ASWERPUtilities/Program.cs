@@ -24,6 +24,9 @@ namespace ASWERPUtilities
                     case Importer.TYPE_IMPORTER_USERS_TO_ASSET:
                         Importer.UsersToAssetsToJson(sourceFile.Trim());
                         break;
+                    case Importer.TYPE_IMPORTER_USERS_TO_USERS:
+                        Importer.UsersToUsersToJson(sourceFile.Trim());
+                        break;
                     default:
                         Console.WriteLine("Invalid operation");
                         break;

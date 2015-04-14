@@ -136,7 +136,7 @@ namespace ASWERP
 
         private void dgvAssets_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            ExecuteSavingAssets();
+            ExecuteSavingAssets(Convert.ToInt32(dgvAssets.Rows[e.RowIndex].Cells["AccessId"].Value));
         }
 
         private void dgvAssets_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -144,27 +144,57 @@ namespace ASWERP
 
         }
 
-        private void ExecuteSavingAssets()
+        private void ExecuteSavingAssets(int? _id = null)
         {
-            List<AssetVM> _details = new List<AssetVM>();
-            for (var i = 0; i < dgvAssets.Rows.Count; i++)
+            if (!_id.HasValue)
             {
-                if (dgvAssets.Rows[i].Index != dgvAssets.NewRowIndex)
+                List<AssetVM> _details = new List<AssetVM>();
+                for (var i = 0; i < dgvAssets.Rows.Count; i++)
                 {
-                    var _item = new AssetVM()
+                    if (dgvAssets.Rows[i].Index != dgvAssets.NewRowIndex)
                     {
-                        AccessId = Convert.ToInt32(dgvAssets.Rows[i].Cells["AccessId"].Value),
-                        EmployeeName = Convert.ToString(dgvAssets.Rows[i].Cells["EmployeeName"].Value),
-                        XLite = Convert.ToString(dgvAssets.Rows[i].Cells["XLite"].Value),
-                        ComputerName = Convert.ToString(dgvAssets.Rows[i].Cells["ComputerName"].Value),
-                        ComputerType = Convert.ToString(dgvAssets.Rows[i].Cells["ComputerType"].Value),
-                        EmailAddress = Convert.ToString(dgvAssets.Rows[i].Cells["EmailAddress"].Value)
-                    };
-                    _details.Add(_item);
+                        var _item = new AssetVM()
+                        {
+                            AccessId = Convert.ToInt32(dgvAssets.Rows[i].Cells["AccessId"].Value),
+                            EmployeeName = Convert.ToString(dgvAssets.Rows[i].Cells["EmployeeName"].Value),
+                            XLite = Convert.ToString(dgvAssets.Rows[i].Cells["XLite"].Value),
+                            ComputerName = Convert.ToString(dgvAssets.Rows[i].Cells["ComputerName"].Value),
+                            ComputerType = Convert.ToString(dgvAssets.Rows[i].Cells["ComputerType"].Value),
+                            EmailAddress = Convert.ToString(dgvAssets.Rows[i].Cells["EmailAddress"].Value)
+                        };
+                        _details.Add(_item);
+                    }
                 }
+                Saver dbSaver = new Saver();
+                dbSaver.Invoke<AssetVM>(Saver.TYPE_ASSETS, null, _details);
+
+            } else
+            {
+                List<AssetVM> _details = Loader.ReadDatabase().ToList<AssetVM>();
+                for (var i = 0; i < _details.Count(); i++)
+                {
+                    if (_details[i].AccessId == _id.Value)
+                    {
+                        for (var j = 0; j < dgvAssets.Rows.Count; j++)
+                        {
+                            if (Convert.ToInt32(dgvAssets.Rows[j].Cells["AccessId"].Value) == _id.Value)
+                            {
+                                _details[i].AccessId = Convert.ToInt32(dgvAssets.Rows[j].Cells["AccessId"].Value);
+                                _details[i].EmployeeName = Convert.ToString(dgvAssets.Rows[j].Cells["EmployeeName"].Value);
+                                _details[i].XLite = Convert.ToString(dgvAssets.Rows[j].Cells["XLite"].Value);
+                                _details[i].ComputerName = Convert.ToString(dgvAssets.Rows[j].Cells["ComputerName"].Value);
+                                _details[i].ComputerType = Convert.ToString(dgvAssets.Rows[j].Cells["ComputerType"].Value);
+                                _details[i].EmailAddress = Convert.ToString(dgvAssets.Rows[j].Cells["EmailAddress"].Value);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                Saver dbSaver = new Saver();
+                dbSaver.Invoke<AssetVM>(Saver.TYPE_ASSETS, null, _details);
             }
-            Saver dbSaver = new Saver();
-            dbSaver.Invoke<AssetVM>(Saver.TYPE_ASSETS, null, _details);
         }
 
         private void dgvAssets_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
@@ -182,8 +212,10 @@ namespace ASWERP
             if (e.KeyCode == Keys.Enter)
             {
                 string _key = tsttDoSearch.Text.Trim();
-
-                dgvAssets.DataSource = Loader.ReadDatabaseWithSearch(_key);
+                if (_key.Length > 0)
+                    dgvAssets.DataSource = Loader.ReadDatabaseWithSearch(_key);
+                else
+                    dgvAssets.DataSource = Loader.ReadDatabase();
             }
         }
 
@@ -196,12 +228,27 @@ namespace ASWERP
 
         private void tsttDoSearch_Leave(object sender, EventArgs e)
         {
-            dgvAssets.DataSource = Loader.ReadDatabase();
         }
 
         private void searchToolStripMenuItem_DropDownClosed(object sender, EventArgs e)
         {
-            dgvAssets.DataSource = Loader.ReadDatabase();
+        }
+
+        private void tsmiUsersMgt_Click(object sender, EventArgs e)
+        {
+            UsersMgt _userMgt = new UsersMgt();
+            Forms.Add(_userMgt);
+
+            _userMgt.Show();
+        }
+
+        private void dgvAssets_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            var dlgResult = MessageBox.Show("Are you sure you'd like to delete \"" + Convert.ToString(e.Row.Cells[1].Value) + "\"?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (dlgResult == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

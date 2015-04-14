@@ -11,6 +11,7 @@ using System.ComponentModel;
 
 using ASWERPModels;
 using ASWERPModels.Extensions;
+using ASWERPModels.ViewModels;
 
 namespace ASWERP.Models
 {
@@ -21,6 +22,7 @@ namespace ASWERP.Models
         public static string documentsPath = Path.Combine(appPath, "Documents");
         public static string templatePath = Path.Combine(appPath, "Templates");
         public static string dbFilePath = Path.Combine(dbPath, "db.json");
+        public static string usersFilePath = Path.Combine(dbPath, "users.json");
         public static string emPath = Path.Combine(appPath, "Database", "em");
 
         public static void Initilize()
@@ -35,6 +37,60 @@ namespace ASWERP.Models
                 Directory.CreateDirectory(templatePath);
             if (!Directory.Exists(documentsPath))
                 Directory.CreateDirectory(documentsPath);
+        }
+
+        public static DataTable ReadUsers()
+        {
+            try
+            {
+                var json = File.ReadAllText(usersFilePath);
+
+                return JsonConvert.DeserializeObject<List<UserVM>>(json).ToDataTable<UserVM>();
+            } catch (Exception ex)
+            {
+                return new DataTable();
+            }
+        }
+
+        public static DataTable ReadUsersWithSearch(string key)
+        {
+            try
+            {
+                var _data = new List<UserVM>();
+                if (!String.IsNullOrEmpty(key))
+                {
+                    var json = File.ReadAllText(usersFilePath);
+
+                    var _list = JsonConvert.DeserializeObject<List<UserVM>>(json);
+
+                    foreach (var _item in _list)
+                    {
+                        if (_item.Id.ToString() == key.Trim())
+                            _data.Add(_item);
+                        if (!String.IsNullOrEmpty(_item.EmployeeName))
+                            if (_item.EmployeeName.Trim().ToLower().Contains(key.ToLower()))
+                                _data.Add(_item);
+                        if (!String.IsNullOrEmpty(_item.Email))
+                            if (_item.Email.Trim().ToLower().Contains(key.ToLower()))
+                                _data.Add(_item);
+                        if (!String.IsNullOrEmpty(_item.Office))
+                            if (_item.Office.Trim().ToLower().Contains(key.ToLower()))
+                                _data.Add(_item);
+                        if (!String.IsNullOrEmpty(_item.Department))
+                            if (_item.Department.Trim().ToLower().Contains(key.ToLower()))
+                                _data.Add(_item);
+
+                    }
+
+                    return _data.ToDataTable<UserVM>();
+                }
+                else
+                    return _data.ToDataTable<UserVM>();
+            }
+            catch (Exception ex)
+            {
+                return new DataTable();
+            }
         }
 
         public static DataTable ReadDatabase()

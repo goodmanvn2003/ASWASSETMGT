@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ASWERPModels;
+using ASWERPModels.ViewModels;
 
 namespace ASWERP.Models
 {
@@ -18,6 +19,7 @@ namespace ASWERP.Models
 
         public const string TYPE_ASSETSHANDOVER = "TAH";
         public const string TYPE_ASSETS = "AST";
+        public const string TYPE_USERS = "USR";
 
         public Saver()
         {
@@ -34,8 +36,35 @@ namespace ASWERP.Models
                 case TYPE_ASSETSHANDOVER:
                     StoreAssetsHandover(vm);
                     break;
+                case TYPE_USERS:
+                    StoreUsers(list);
+                    break;
                 default:
                     break;
+            }
+        }
+
+        private void StoreUsers<T>(List<T> list)
+        {
+            try
+            {
+                var _list = list as List<UserVM>;
+
+                var path = Path.Combine(Loader.usersFilePath);
+
+                serializer.NullValueHandling = NullValueHandling.Ignore;
+                serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                serializer.DateFormatString = "MM/dd/yyyy";
+
+                using (StreamWriter sw = new StreamWriter(path))
+                using (JsonWriter writer = new JsonTextWriter(sw))
+                {
+                    serializer.Serialize(writer, _list);
+                }
+            }
+            catch (Exception ex)
+            {
+                var test = ex;
             }
         }
 
@@ -45,7 +74,7 @@ namespace ASWERP.Models
             {
                 var _list = list as List<AssetVM>;
 
-                var path = Path.Combine(Loader.appPath, "Database", String.Format("{0}.json", "db"));
+                var path = Path.Combine(Loader.dbFilePath);
 
                 serializer.NullValueHandling = NullValueHandling.Ignore;
                 serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
@@ -68,7 +97,7 @@ namespace ASWERP.Models
             {
                 var _vm = vm as AssetsHandoverVM;
 
-                var emPath = Path.Combine(Loader.appPath, "Database", "em");
+                var emPath = Path.Combine(Loader.emPath);
 
                 var emFileName = Path.Combine(emPath, String.Format("{0}.json", _vm.AccessId.ToString()));
 

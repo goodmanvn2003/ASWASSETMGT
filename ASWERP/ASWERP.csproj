@@ -83,6 +83,12 @@
     <Compile Include="Models\Saver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsersManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UsersManagement.Designer.cs">
+      <DependentUpon>UsersManagement.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AssetsHandover.resx">
       <DependentUpon>AssetsHandover.cs</DependentUpon>
     </EmbeddedResource>
@@ -102,6 +108,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UsersManagement.resx">
+      <DependentUpon>UsersManagement.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Database\db.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

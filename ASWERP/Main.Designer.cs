@@ -32,11 +32,11 @@
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMnuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUsersMgt = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsttDoSearch = new System.Windows.Forms.ToolStripTextBox();
             this.dgvAssets = new System.Windows.Forms.DataGridView();
-            this.cmsDvgAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.AccessId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.XLite = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +44,8 @@
             this.ComputerType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmailAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.More = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.cmsDvgAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.msMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).BeginInit();
             this.cmsDvgAssets.SuspendLayout();
@@ -53,6 +55,7 @@
             // 
             this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.managementToolStripMenuItem,
             this.searchToolStripMenuItem});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
@@ -75,13 +78,28 @@
             this.exitMnuItem.Text = "&Exit";
             this.exitMnuItem.Click += new System.EventHandler(this.exitMnuItem_Click);
             // 
+            // managementToolStripMenuItem
+            // 
+            this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiUsersMgt});
+            this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
+            this.managementToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.managementToolStripMenuItem.Text = "&Management";
+            // 
+            // tsmiUsersMgt
+            // 
+            this.tsmiUsersMgt.Name = "tsmiUsersMgt";
+            this.tsmiUsersMgt.Size = new System.Drawing.Size(102, 22);
+            this.tsmiUsersMgt.Text = "Users";
+            this.tsmiUsersMgt.Click += new System.EventHandler(this.tsmiUsersMgt_Click);
+            // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsttDoSearch});
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.searchToolStripMenuItem.Text = "Search";
+            this.searchToolStripMenuItem.Text = "&Search";
             this.searchToolStripMenuItem.DropDownClosed += new System.EventHandler(this.searchToolStripMenuItem_DropDownClosed);
             // 
             // tsttDoSearch
@@ -116,20 +134,7 @@
             this.dgvAssets.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvAssets_RowsRemoved);
             this.dgvAssets.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvAssets_UserAddedRow);
             this.dgvAssets.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvAssets_UserDeletedRow);
-            // 
-            // cmsDvgAssets
-            // 
-            this.cmsDvgAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiRemove});
-            this.cmsDvgAssets.Name = "cmsDvgAssets";
-            this.cmsDvgAssets.Size = new System.Drawing.Size(127, 26);
-            // 
-            // tsmiRemove
-            // 
-            this.tsmiRemove.Name = "tsmiRemove";
-            this.tsmiRemove.Size = new System.Drawing.Size(126, 22);
-            this.tsmiRemove.Text = "Remove...";
-            this.tsmiRemove.Click += new System.EventHandler(this.tsmiRemove_Click);
+            this.dgvAssets.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvAssets_UserDeletingRow);
             // 
             // AccessId
             // 
@@ -183,6 +188,20 @@
             this.More.ToolTipText = "Click here for more information";
             this.More.UseColumnTextForLinkValue = true;
             // 
+            // cmsDvgAssets
+            // 
+            this.cmsDvgAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiRemove});
+            this.cmsDvgAssets.Name = "cmsDvgAssets";
+            this.cmsDvgAssets.Size = new System.Drawing.Size(127, 26);
+            // 
+            // tsmiRemove
+            // 
+            this.tsmiRemove.Name = "tsmiRemove";
+            this.tsmiRemove.Size = new System.Drawing.Size(126, 22);
+            this.tsmiRemove.Text = "Remove...";
+            this.tsmiRemove.Click += new System.EventHandler(this.tsmiRemove_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,6 +244,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ComputerType;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmailAddress;
         private System.Windows.Forms.DataGridViewLinkColumn More;
+        private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUsersMgt;
 
     }
 }
