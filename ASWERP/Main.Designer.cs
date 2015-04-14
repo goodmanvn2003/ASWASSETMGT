@@ -33,11 +33,11 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMnuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsttDoSearch = new System.Windows.Forms.ToolStripTextBox();
             this.dgvAssets = new System.Windows.Forms.DataGridView();
             this.cmsDvgAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsttDoSearch = new System.Windows.Forms.ToolStripTextBox();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccessId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.XLite = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComputerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,11 +84,20 @@
             this.searchToolStripMenuItem.Text = "Search";
             this.searchToolStripMenuItem.DropDownClosed += new System.EventHandler(this.searchToolStripMenuItem_DropDownClosed);
             // 
+            // tsttDoSearch
+            // 
+            this.tsttDoSearch.AcceptsReturn = true;
+            this.tsttDoSearch.Name = "tsttDoSearch";
+            this.tsttDoSearch.Size = new System.Drawing.Size(100, 23);
+            this.tsttDoSearch.Leave += new System.EventHandler(this.tsttDoSearch_Leave);
+            this.tsttDoSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsttDoSearch_KeyDown);
+            this.tsttDoSearch.TextChanged += new System.EventHandler(this.tsttDoSearch_TextChanged);
+            // 
             // dgvAssets
             // 
             this.dgvAssets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAssets.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
+            this.AccessId,
             this.EmployeeName,
             this.XLite,
             this.ComputerName,
@@ -122,23 +131,14 @@
             this.tsmiRemove.Text = "Remove...";
             this.tsmiRemove.Click += new System.EventHandler(this.tsmiRemove_Click);
             // 
-            // tsttDoSearch
+            // AccessId
             // 
-            this.tsttDoSearch.AcceptsReturn = true;
-            this.tsttDoSearch.Name = "tsttDoSearch";
-            this.tsttDoSearch.Size = new System.Drawing.Size(100, 23);
-            this.tsttDoSearch.Leave += new System.EventHandler(this.tsttDoSearch_Leave);
-            this.tsttDoSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsttDoSearch_KeyDown);
-            this.tsttDoSearch.TextChanged += new System.EventHandler(this.tsttDoSearch_TextChanged);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Id.Width = 150;
+            this.AccessId.DataPropertyName = "AccessId";
+            this.AccessId.HeaderText = "Id";
+            this.AccessId.Name = "AccessId";
+            this.AccessId.ReadOnly = true;
+            this.AccessId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.AccessId.Width = 150;
             // 
             // EmployeeName
             // 
@@ -218,7 +218,7 @@
         private System.Windows.Forms.ContextMenuStrip cmsDvgAssets;
         private System.Windows.Forms.ToolStripMenuItem tsmiRemove;
         private System.Windows.Forms.ToolStripTextBox tsttDoSearch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccessId;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn XLite;
         private System.Windows.Forms.DataGridViewTextBoxColumn ComputerName;

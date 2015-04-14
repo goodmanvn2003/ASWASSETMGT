@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASWERP.Models
+namespace ASWERPModels.Extensions
 {
     public static class Extensions
     {
@@ -40,6 +40,11 @@ namespace ASWERP.Models
                 return String.Empty;
         }
 
+        public static string DisplayDate(this DateTime value, string format)
+        {
+            return String.Format(format, value);
+        }
+
         public static bool IsUpper(this string value)
         {
             // Consider string to be uppercase if it has no lowercase letters.
@@ -51,6 +56,21 @@ namespace ASWERP.Models
                 }
             }
             return true;
+        }
+        public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, bool> predicate)
+        {
+            if (condition)
+                return source.Where(predicate);
+            else
+                return source;
+        }
+
+        public static IEnumerable<TSource> WhereIf<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, int, bool> predicate)
+        {
+            if (condition)
+                return source.Where(predicate);
+            else
+                return source;
         }
 
         public static bool IsLower(this string value)

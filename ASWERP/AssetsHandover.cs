@@ -12,13 +12,15 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ASWERPModels.Extensions;
+
 namespace ASWERP
 {
     public partial class AssetsHandover : Form
     {
         public Main Parent = null;
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
 
         private const string REGEX_CPU_DDRAM = "^(([a-zA-Z0-9 ]|[a-zA-Z0-9])+,([a-zA-Z0-9 ]|[a-zA-Z0-9])+){1}$";
@@ -34,7 +36,7 @@ namespace ASWERP
 
         private AssetsHandoverVM ViewModel = null;
 
-        public AssetsHandover(Main _parent, string _id, string _name)
+        public AssetsHandover(Main _parent, int _id, string _name)
         {
             InitializeComponent();
 
@@ -47,7 +49,7 @@ namespace ASWERP
 
             // Load other data from JSON if any
             ViewModel = Loader.ReadAssetHandover(_id);
-            ViewModel.Id = _id;
+            ViewModel.AccessId = _id;
             ViewModel.Name = _name ?? String.Empty;
 
             // Show items to view

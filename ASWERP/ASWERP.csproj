@@ -77,13 +77,10 @@
     </Compile>
     <Compile Include="Models\AssetsHandoverDetails.cs" />
     <Compile Include="Models\AssetsHandoverVM.cs" />
-    <Compile Include="Models\AssetVM.cs" />
     <Compile Include="Models\Authenticator.cs" />
     <Compile Include="Models\DocumentParser.cs" />
-    <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\Loader.cs" />
     <Compile Include="Models\Saver.cs" />
-    <Compile Include="Models\Utilities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AssetsHandover.resx">
@@ -152,6 +149,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ASWERPModels\ASWERPModels.csproj">
+      <Project>{bbefa0e3-0514-4a82-b4b7-7e8a160cf84c}</Project>
+      <Name>ASWERPModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

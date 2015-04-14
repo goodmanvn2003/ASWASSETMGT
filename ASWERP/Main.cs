@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using ASWERP.Models;
+using ASWERPModels;
+using ASWERPModels.Extensions;
+using ASWERPModels.Utilities;
 
 namespace ASWERP
 {
@@ -44,12 +47,12 @@ namespace ASWERP
 
         private void dgvAssets_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvAssets.Columns[e.ColumnIndex].Name.Equals("Id"))
+            /* if (dgvAssets.Columns[e.ColumnIndex].Name.Equals("Id"))
             {
                 string _value = Convert.ToString(dgvAssets.Rows[e.RowIndex].Cells["Id"].Value);
                 if (_value.Length == 0 && e.RowIndex != dgvAssets.NewRowIndex)
                     dgvAssets.Rows[e.RowIndex].Cells["Id"].Value = String.Format("{0}.{1}", AssetVM.ID_PREFIX, Utilities.GenerateAssetsId());
-            }
+            }*/
 
             if (dgvAssets.Columns[e.ColumnIndex].Name.Equals("EmployeeName"))
             {
@@ -96,10 +99,10 @@ namespace ASWERP
             {
                 if (e.RowIndex >= 0)
                 {
-                    var id = dgvAssets.Rows[e.RowIndex].Cells["Id"].Value;
+                    var id = dgvAssets.Rows[e.RowIndex].Cells["AccessId"].Value;
                     var employeeName = dgvAssets.Rows[e.RowIndex].Cells["EmployeeName"].Value;
 
-                    AssetsHandover assetsHandover = new AssetsHandover(this, Convert.ToString(id), Convert.ToString(employeeName));
+                    AssetsHandover assetsHandover = new AssetsHandover(this, Convert.ToInt32(id), Convert.ToString(employeeName));
                     Forms.Add(assetsHandover);
 
                     assetsHandover.Show();
@@ -150,7 +153,7 @@ namespace ASWERP
                 {
                     var _item = new AssetVM()
                     {
-                        Id = Convert.ToString(dgvAssets.Rows[i].Cells["Id"].Value),
+                        AccessId = Convert.ToInt32(dgvAssets.Rows[i].Cells["AccessId"].Value),
                         EmployeeName = Convert.ToString(dgvAssets.Rows[i].Cells["EmployeeName"].Value),
                         XLite = Convert.ToString(dgvAssets.Rows[i].Cells["XLite"].Value),
                         ComputerName = Convert.ToString(dgvAssets.Rows[i].Cells["ComputerName"].Value),

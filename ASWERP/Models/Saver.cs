@@ -8,6 +8,8 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
+using ASWERPModels;
+
 namespace ASWERP.Models
 {
     public class Saver
@@ -68,7 +70,7 @@ namespace ASWERP.Models
 
                 var emPath = Path.Combine(Loader.appPath, "Database", "em");
 
-                var emFileName = Path.Combine(emPath, String.Format("{0}.json", _vm.Id.Trim()));
+                var emFileName = Path.Combine(emPath, String.Format("{0}.json", _vm.AccessId.ToString()));
 
                 serializer.NullValueHandling = NullValueHandling.Ignore;
                 serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;

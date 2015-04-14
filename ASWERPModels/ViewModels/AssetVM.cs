@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASWERP.Models
+namespace ASWERPModels
 {
     public class AssetVM
     {
@@ -12,6 +12,7 @@ namespace ASWERP.Models
         public const string COMPUTERNAME_PREFIX = "ASW";
 
         public string Id { get; set; }
+        public int AccessId { get; set; }
         public string EmployeeName { get; set; }
         public string XLite { get; set; }
         public string ComputerName { get; set; }

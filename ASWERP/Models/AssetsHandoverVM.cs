@@ -9,6 +9,7 @@ namespace ASWERP.Models
     public class AssetsHandoverVM
     {
         public string Id { get; set; }
+        public int AccessId { get; set; }
         public string Name { get; set; }
         public string Department { get; set; }
         public string GroupManagerName { get; set; }

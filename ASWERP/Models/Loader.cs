@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using System.Data;
 using System.ComponentModel;
 
+using ASWERPModels;
+using ASWERPModels.Extensions;
+
 namespace ASWERP.Models
 {
     public class Loader
@@ -51,11 +54,33 @@ namespace ASWERP.Models
         {
             try
             {
-                var json = File.ReadAllText(dbFilePath);
+                var _data = new List<AssetVM>();
+                if (!String.IsNullOrEmpty(key))
+                {
+                    var json = File.ReadAllText(dbFilePath);
 
-                var _list = JsonConvert.DeserializeObject<List<AssetVM>>(json);
+                    var _list = JsonConvert.DeserializeObject<List<AssetVM>>(json);
 
-                return _list.Where(x => x.Id.ToLower() == key.ToLower() || x.EmployeeName.ToLower().Contains(key.ToLower()) || x.EmailAddress.ToLower().Contains(key.ToLower()) || x.ComputerName.ToLower().Contains(key.ToLower())).ToList().ToDataTable<AssetVM>();
+                    foreach (var _item in _list)
+                    {
+                        if (_item.AccessId.ToString() == key.Trim())
+                            _data.Add(_item);
+                        if (!String.IsNullOrEmpty(_item.EmployeeName))
+                            if (_item.EmployeeName.Trim().ToLower().Contains(key.ToLower()))
+                                _data.Add(_item);
+                        if (!String.IsNullOrEmpty(_item.EmailAddress))
+                            if (_item.EmailAddress.Trim().ToLower().Contains(key.ToLower()))
+                                _data.Add(_item);
+                        if (!String.IsNullOrEmpty(_item.ComputerName))
+                            if (_item.ComputerName.Trim().ToLower().Contains(key.ToLower()))
+                                _data.Add(_item);
+
+                    }
+
+                    return _data.ToDataTable<AssetVM>();
+                }
+                else
+                    return _data.ToDataTable<AssetVM>();
             }
             catch (Exception ex)
             {
@@ -63,11 +88,11 @@ namespace ASWERP.Models
             }
         }
 
-        public static AssetsHandoverVM ReadAssetHandover(string id)
+        public static AssetsHandoverVM ReadAssetHandover(int id)
         {
             try
             {
-                var json = File.ReadAllText(Path.Combine(emPath, String.Format("{0}.json", id.Trim())));
+                var json = File.ReadAllText(Path.Combine(emPath, String.Format("{0}.json", id.ToString().Trim())));
 
                 return JsonConvert.DeserializeObject<AssetsHandoverVM>(json);
             } catch (Exception ex)

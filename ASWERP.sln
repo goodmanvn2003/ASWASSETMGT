@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASWERP", "ASWERP\ASWERP.csproj", "{34A1F09B-CF6E-4379-A971-4A09A63D5D47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASWERPUtilities", "ASWERPUtilities\ASWERPUtilities.csproj", "{C47A1141-4566-4C39-BD92-1273E896852A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASWERPModels", "ASWERPModels\ASWERPModels.csproj", "{BBEFA0E3-0514-4A82-B4B7-7E8A160CF84C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{34A1F09B-CF6E-4379-A971-4A09A63D5D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A1F09B-CF6E-4379-A971-4A09A63D5D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A1F09B-CF6E-4379-A971-4A09A63D5D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47A1141-4566-4C39-BD92-1273E896852A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47A1141-4566-4C39-BD92-1273E896852A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47A1141-4566-4C39-BD92-1273E896852A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47A1141-4566-4C39-BD92-1273E896852A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBEFA0E3-0514-4A82-B4B7-7E8A160CF84C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBEFA0E3-0514-4A82-B4B7-7E8A160CF84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBEFA0E3-0514-4A82-B4B7-7E8A160CF84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBEFA0E3-0514-4A82-B4B7-7E8A160CF84C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
