@@ -76,12 +76,12 @@ namespace ASWERP.Models
                             _doc.Replace(PLACEHOLDER_ASSETHANDOVER_ACC, String.Empty, true, true);
                             _doc.Replace(PLACEHOLDER_ASSETHANDOVER_QA, String.Empty, true, true);
                             break;
-                        case "QA":
+                        case "Accounting":
                             _doc.Replace(PLACEHOLDER_ASSETHANDOVER_DEV, String.Empty, true, true);
                             _doc.Replace(PLACEHOLDER_ASSETHANDOVER_ACC, "[X]", true, true);
                             _doc.Replace(PLACEHOLDER_ASSETHANDOVER_QA, String.Empty, true, true);
                             break;
-                        case "Accounting":
+                        case "QA":
                             _doc.Replace(PLACEHOLDER_ASSETHANDOVER_DEV, String.Empty, true, true);
                             _doc.Replace(PLACEHOLDER_ASSETHANDOVER_ACC, String.Empty, true, true);
                             _doc.Replace(PLACEHOLDER_ASSETHANDOVER_QA, "[X]", true, true);

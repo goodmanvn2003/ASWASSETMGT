@@ -13,7 +13,7 @@ namespace ASWERPModels
 
         public string Id { get; set; }
         public int AccessId { get; set; }
-        public string EmployeeName { get; set; }
+        public int EmployeeName { get; set; }
         public string XLite { get; set; }
         public string ComputerName { get; set; }
         public string EmailAddress { get; set; }

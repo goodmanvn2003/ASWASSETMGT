@@ -136,7 +136,9 @@ namespace ASWERP
 
         private void dgvAssets_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            ExecuteSavingAssets(Convert.ToInt32(dgvAssets.Rows[e.RowIndex].Cells["AccessId"].Value));
+            var _dataId = Convert.ToString(dgvAssets.Rows[e.RowIndex].Cells["AccessId"].Value);
+            if (!String.IsNullOrEmpty(_dataId))
+                ExecuteSavingAssets(Convert.ToInt32(_dataId));
         }
 
         private void dgvAssets_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -156,7 +158,7 @@ namespace ASWERP
                         var _item = new AssetVM()
                         {
                             AccessId = Convert.ToInt32(dgvAssets.Rows[i].Cells["AccessId"].Value),
-                            EmployeeName = Convert.ToString(dgvAssets.Rows[i].Cells["EmployeeName"].Value),
+                            EmployeeName = Convert.ToInt32(dgvAssets.Rows[i].Cells["EmployeeName"].Value),
                             XLite = Convert.ToString(dgvAssets.Rows[i].Cells["XLite"].Value),
                             ComputerName = Convert.ToString(dgvAssets.Rows[i].Cells["ComputerName"].Value),
                             ComputerType = Convert.ToString(dgvAssets.Rows[i].Cells["ComputerType"].Value),
@@ -180,7 +182,7 @@ namespace ASWERP
                             if (Convert.ToInt32(dgvAssets.Rows[j].Cells["AccessId"].Value) == _id.Value)
                             {
                                 _details[i].AccessId = Convert.ToInt32(dgvAssets.Rows[j].Cells["AccessId"].Value);
-                                _details[i].EmployeeName = Convert.ToString(dgvAssets.Rows[j].Cells["EmployeeName"].Value);
+                                _details[i].EmployeeName = Convert.ToInt32(dgvAssets.Rows[j].Cells["EmployeeName"].Value);
                                 _details[i].XLite = Convert.ToString(dgvAssets.Rows[j].Cells["XLite"].Value);
                                 _details[i].ComputerName = Convert.ToString(dgvAssets.Rows[j].Cells["ComputerName"].Value);
                                 _details[i].ComputerType = Convert.ToString(dgvAssets.Rows[j].Cells["ComputerType"].Value);
@@ -237,9 +239,12 @@ namespace ASWERP
         private void tsmiUsersMgt_Click(object sender, EventArgs e)
         {
             UsersMgt _userMgt = new UsersMgt();
-            Forms.Add(_userMgt);
+            if (!Forms.Any(x => x.GetType().Name == _userMgt.GetType().Name)) {
+                Forms.Add(_userMgt);
+                _userMgt.Parent = this;
 
-            _userMgt.Show();
+                _userMgt.Show();
+            }
         }
 
         private void dgvAssets_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -249,6 +254,16 @@ namespace ASWERP
             {
                 e.Cancel = true;
             }
+        }
+
+        public void RefreshData()
+        {
+            this.EmployeeName.DataSource = Loader.UsersSelectList();
+        }
+
+        public void RemoveRegisteredForm(Form _form)
+        {
+            Forms.Remove(_form);
         }
     }
 }

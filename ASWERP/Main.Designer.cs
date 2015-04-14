@@ -1,4 +1,5 @@
-﻿namespace ASWERP
+﻿using ASWERP.Models;
+namespace ASWERP
 {
     partial class Main
     {
@@ -29,6 +30,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.BindingSource EmployeeSource;
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMnuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +40,7 @@
             this.tsttDoSearch = new System.Windows.Forms.ToolStripTextBox();
             this.dgvAssets = new System.Windows.Forms.DataGridView();
             this.AccessId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.XLite = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComputerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComputerType = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,6 +48,8 @@
             this.More = new System.Windows.Forms.DataGridViewLinkColumn();
             this.cmsDvgAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiRemove = new System.Windows.Forms.ToolStripMenuItem();
+            EmployeeSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).BeginInit();
             this.msMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).BeginInit();
             this.cmsDvgAssets.SuspendLayout();
@@ -59,7 +63,7 @@
             this.searchToolStripMenuItem});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
-            this.msMain.Size = new System.Drawing.Size(1352, 24);
+            this.msMain.Size = new System.Drawing.Size(1538, 24);
             this.msMain.TabIndex = 1;
             this.msMain.Text = "menuStrip1";
             // 
@@ -124,7 +128,7 @@
             this.More});
             this.dgvAssets.Location = new System.Drawing.Point(12, 27);
             this.dgvAssets.Name = "dgvAssets";
-            this.dgvAssets.Size = new System.Drawing.Size(1328, 717);
+            this.dgvAssets.Size = new System.Drawing.Size(1514, 717);
             this.dgvAssets.TabIndex = 2;
             this.dgvAssets.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssets_CellContentClick);
             this.dgvAssets.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssets_CellEndEdit);
@@ -143,14 +147,22 @@
             this.AccessId.Name = "AccessId";
             this.AccessId.ReadOnly = true;
             this.AccessId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.AccessId.Width = 150;
+            this.AccessId.Width = 64;
             // 
             // EmployeeName
             // 
             this.EmployeeName.DataPropertyName = "EmployeeName";
             this.EmployeeName.HeaderText = "Employee Name";
             this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EmployeeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.EmployeeName.Width = 312;
+
+            /* TODO: Custom codes, should be removed when saving designer */
+            this.EmployeeName.DisplayMember = "EmployeeName";
+            this.EmployeeName.ValueMember = "Id";
+            this.EmployeeName.DataSource = Loader.UsersSelectList();
+            /* */
             // 
             // XLite
             // 
@@ -206,7 +218,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1352, 756);
+            this.ClientSize = new System.Drawing.Size(1538, 756);
             this.Controls.Add(this.dgvAssets);
             this.Controls.Add(this.msMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -218,6 +230,7 @@
             this.Text = "Assets Management System";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Shown += new System.EventHandler(this.Main_Shown);
+            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).EndInit();
             this.msMain.ResumeLayout(false);
             this.msMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).EndInit();
@@ -237,15 +250,15 @@
         private System.Windows.Forms.ContextMenuStrip cmsDvgAssets;
         private System.Windows.Forms.ToolStripMenuItem tsmiRemove;
         private System.Windows.Forms.ToolStripTextBox tsttDoSearch;
+        private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUsersMgt;
         private System.Windows.Forms.DataGridViewTextBoxColumn AccessId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn EmployeeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn XLite;
         private System.Windows.Forms.DataGridViewTextBoxColumn ComputerName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ComputerType;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmailAddress;
         private System.Windows.Forms.DataGridViewLinkColumn More;
-        private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmiUsersMgt;
 
     }
 }

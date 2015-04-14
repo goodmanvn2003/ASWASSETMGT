@@ -39,6 +39,38 @@ namespace ASWERP.Models
                 Directory.CreateDirectory(documentsPath);
         }
 
+        public static string GetUserName(int _id)
+        {
+            try
+            {
+                var json = File.ReadAllText(usersFilePath);
+
+                var _item = JsonConvert.DeserializeObject<List<MicroUserVM>>(json).FirstOrDefault(x => x.Id == _id);
+                if (_item != null)
+                    return !String.IsNullOrEmpty(_item.EmployeeName) ? _item.EmployeeName.Trim() : null;
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static List<MicroUserVM> UsersSelectList()
+        {
+            try
+            {
+                var json = File.ReadAllText(usersFilePath);
+
+                return JsonConvert.DeserializeObject<List<MicroUserVM>>(json).OrderBy(x => x.EmployeeName).ToList();
+            }
+            catch (Exception ex)
+            {
+                return new List<MicroUserVM>();
+            }
+        }
+
         public static DataTable ReadUsers()
         {
             try
@@ -121,9 +153,9 @@ namespace ASWERP.Models
                     {
                         if (_item.AccessId.ToString() == key.Trim())
                             _data.Add(_item);
-                        if (!String.IsNullOrEmpty(_item.EmployeeName))
+                        /*if (!String.IsNullOrEmpty(_item.EmployeeName))
                             if (_item.EmployeeName.Trim().ToLower().Contains(key.ToLower()))
-                                _data.Add(_item);
+                                _data.Add(_item);*/
                         if (!String.IsNullOrEmpty(_item.EmailAddress))
                             if (_item.EmailAddress.Trim().ToLower().Contains(key.ToLower()))
                                 _data.Add(_item);

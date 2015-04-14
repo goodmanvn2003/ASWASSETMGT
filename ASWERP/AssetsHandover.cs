@@ -18,6 +18,8 @@ namespace ASWERP
 {
     public partial class AssetsHandover : Form
     {
+        public string IDENTIFIER = "UsersMgt";
+
         public Main Parent = null;
 
         public int Id { get; set; }
@@ -30,6 +32,9 @@ namespace ASWERP
         private const string REGEX_ASSETNAME_R3 = "^ASW2VNHEA[A-Z0-9]+$";
         private const string REGEX_ASSETNAME_RD1 = "^ASW[A-Z0-9]+$";
         private const string REGEX_ASSETNAME_RD2 = "^ASW2[A-Z0-9]+$";
+
+        private const string UNSPECIFIED_USERNAME = "(Unspecified)";
+
         private Regex _Regex = null;
 
         private const int MaxDetailsRowCount = 5;
@@ -42,7 +47,7 @@ namespace ASWERP
 
             Parent = _parent;
 
-            txtName.Text = _name ?? String.Empty;
+            txtName.Text = !String.IsNullOrEmpty(Loader.GetUserName(_id)) ? Loader.GetUserName(_id) : UNSPECIFIED_USERNAME;
 
             // Put data into View Model
             ViewModel = new AssetsHandoverVM();
@@ -50,7 +55,7 @@ namespace ASWERP
             // Load other data from JSON if any
             ViewModel = Loader.ReadAssetHandover(_id);
             ViewModel.AccessId = _id;
-            ViewModel.Name = _name ?? String.Empty;
+            ViewModel.Name = !String.IsNullOrEmpty(Loader.GetUserName(_id)) ? Loader.GetUserName(_id) : UNSPECIFIED_USERNAME;
 
             // Show items to view
             cmbDeptName.Text = ViewModel.Department;

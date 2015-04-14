@@ -61,6 +61,7 @@
             this.dgvUsers.TabIndex = 0;
             this.dgvUsers.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellEndEdit);
             this.dgvUsers.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvUsers_CellFormatting);
+            this.dgvUsers.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvUsers_EditingControlShowing);
             this.dgvUsers.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvUsers_UserDeletedRow);
             this.dgvUsers.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvUsers_UserDeletingRow);
             // 
@@ -176,6 +177,7 @@
             this.Name = "UsersMgt";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Users Management";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UsersMgt_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
