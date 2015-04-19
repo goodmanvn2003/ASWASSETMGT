@@ -80,6 +80,9 @@
     <Compile Include="Models\Authenticator.cs" />
     <Compile Include="Models\DocumentParser.cs" />
     <Compile Include="Models\Loader.cs" />
+    <Compile Include="Models\ModDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Models\Saver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,6 +11,7 @@ namespace ASWERPModels
         public const string ID_PREFIX = "ASWAS";
         public const string COMPUTERNAME_PREFIX = "ASW";
 
+        public string GuidNo { get; set; }
         public string Id { get; set; }
         public int AccessId { get; set; }
         public int EmployeeName { get; set; }

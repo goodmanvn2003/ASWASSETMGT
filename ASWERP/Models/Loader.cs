@@ -24,6 +24,7 @@ namespace ASWERP.Models
         public static string dbFilePath = Path.Combine(dbPath, "db.json");
         public static string usersFilePath = Path.Combine(dbPath, "users.json");
         public static string emPath = Path.Combine(appPath, "Database", "em");
+        public static string assetsPath = Path.Combine(dbPath, "assets.json");
 
         public static void Initilize()
         {
@@ -37,6 +38,19 @@ namespace ASWERP.Models
                 Directory.CreateDirectory(templatePath);
             if (!Directory.Exists(documentsPath))
                 Directory.CreateDirectory(documentsPath);
+        }
+
+        public static DataTable ReadAssets()
+        {
+            try
+            {
+                var json = File.ReadAllText(assetsPath);
+
+                return JsonConvert.DeserializeObject<List<AssetSpecifierVM>>(json).ToDataTable<AssetSpecifierVM>();
+            } catch (Exception ex)
+            {
+                return new DataTable();
+            }
         }
 
         public static string GetUserName(int _id)

@@ -44,13 +44,23 @@ namespace ASWERP
 
         private void dgvUsers_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            var _dataId = Convert.ToString(dgvUsers.Rows[e.RowIndex].Cells["Id"].Value);
-            if (!String.IsNullOrEmpty(_dataId))
-                ExecuteSavingUsers(Convert.ToInt32(_dataId));
+            var _guidNo = Convert.ToString(dgvUsers.Rows[e.RowIndex].Cells["GuidNo"].Value);
+            if (!String.IsNullOrEmpty(_guidNo))
+            {
+                var _dataId = Convert.ToString(dgvUsers.Rows[e.RowIndex].Cells["Id"].Value);
+                if (!String.IsNullOrEmpty(_dataId))
+                    _guidNo = ExecuteSavingUsers(Convert.ToInt32(_dataId));
+            }
+            else
+            {
+                dgvUsers.Rows[e.RowIndex].Cells["GuidNo"].Value = ExecuteSavingUsers(); ;
+            }      
         }
 
-        private void ExecuteSavingUsers(int? _id = null)
+        private string ExecuteSavingUsers(int? _id = null)
         {
+            var _guidNo = Guid.NewGuid().ToString();
+            
             if (!_id.HasValue)
             {
                 List<UserVM> _details = new List<UserVM>();
@@ -60,6 +70,7 @@ namespace ASWERP
                     {
                         var _item = new UserVM()
                         {
+                            GuidNo = _guidNo,
                             Id = Convert.ToInt32(dgvUsers.Rows[i].Cells["Id"].Value),
                             EmployeeName = Convert.ToString(dgvUsers.Rows[i].Cells["EmployeeName"].Value),
                             XLite = Convert.ToString(dgvUsers.Rows[i].Cells["XLite"].Value),
@@ -104,7 +115,7 @@ namespace ASWERP
                 Saver dbSaver = new Saver();
                 dbSaver.Invoke<UserVM>(Saver.TYPE_USERS, null, _details);
             }
-            
+            return _guidNo;
         }
 
         private void dgvUsers_UserDeletedRow(object sender, DataGridViewRowEventArgs e)

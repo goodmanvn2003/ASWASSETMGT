@@ -20,6 +20,7 @@ namespace ASWERP.Models
         public const string TYPE_ASSETSHANDOVER = "TAH";
         public const string TYPE_ASSETS = "AST";
         public const string TYPE_USERS = "USR";
+        public const string TYPE_ASSETSSPECIFIER = "ASP";
 
         public Saver()
         {
@@ -39,8 +40,49 @@ namespace ASWERP.Models
                 case TYPE_USERS:
                     StoreUsers(list);
                     break;
+                case TYPE_ASSETSSPECIFIER:
+                    StoreAssetsSpecifiers(list);
+                    break;
                 default:
                     break;
+            }
+        }
+
+        private void ExecuteSaveList<T>(string path, List<T> _list) {
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+            serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+            serializer.DateFormatString = "MM/dd/yyyy";
+
+            using (StreamWriter sw = new StreamWriter(path))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, _list);
+            }
+        }
+
+        private void ExecuteSave<T>(string path, T vm)
+        {
+            serializer.NullValueHandling = NullValueHandling.Ignore;
+            serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+            serializer.DateFormatString = "MM/dd/yyyy";
+
+            using (StreamWriter sw = new StreamWriter(path))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(writer, vm);
+            }
+        }
+
+        private void StoreAssetsSpecifiers<T>(List<T> list)
+        {
+            try
+            {
+                var _list = list as List<AssetSpecifierVM>;
+
+                ExecuteSaveList<AssetSpecifierVM>(Path.Combine(Loader.assetsPath), _list);
+            } catch (Exception ex)
+            {
+                var test = ex;
             }
         }
 
@@ -50,17 +92,7 @@ namespace ASWERP.Models
             {
                 var _list = list as List<UserVM>;
 
-                var path = Path.Combine(Loader.usersFilePath);
-
-                serializer.NullValueHandling = NullValueHandling.Ignore;
-                serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                serializer.DateFormatString = "MM/dd/yyyy";
-
-                using (StreamWriter sw = new StreamWriter(path))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, _list);
-                }
+                ExecuteSaveList<UserVM>(Path.Combine(Loader.usersFilePath), _list);
             }
             catch (Exception ex)
             {
@@ -74,17 +106,7 @@ namespace ASWERP.Models
             {
                 var _list = list as List<AssetVM>;
 
-                var path = Path.Combine(Loader.dbFilePath);
-
-                serializer.NullValueHandling = NullValueHandling.Ignore;
-                serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                serializer.DateFormatString = "MM/dd/yyyy";
-
-                using (StreamWriter sw = new StreamWriter(path))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, _list);
-                }
+                ExecuteSaveList<AssetVM>(Path.Combine(Loader.dbFilePath), _list);
             } catch (Exception ex)
             {
                 var test = ex;
@@ -101,15 +123,7 @@ namespace ASWERP.Models
 
                 var emFileName = Path.Combine(emPath, String.Format("{0}.json", _vm.AccessId.ToString()));
 
-                serializer.NullValueHandling = NullValueHandling.Ignore;
-                serializer.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                serializer.DateFormatString = "MM/dd/yyyy";
-
-                using (StreamWriter sw = new StreamWriter(emFileName))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, vm);
-                }
+                ExecuteSave<AssetsHandoverVM>(emFileName, _vm);
             } catch (Exception ex)
             {
                 var test = ex;

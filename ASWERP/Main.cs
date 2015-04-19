@@ -12,6 +12,7 @@ using ASWERP.Models;
 using ASWERPModels;
 using ASWERPModels.Extensions;
 using ASWERPModels.Utilities;
+using ASWERPModels.ViewModels;
 
 namespace ASWERP
 {
@@ -19,6 +20,7 @@ namespace ASWERP
     {
         public Login login { get; set; }
         public List<Form> Forms = null;
+        private List<ModDateTimePicker> oDateTimePickerList = new List<ModDateTimePicker>();
 
         public Main()
         {
@@ -26,8 +28,29 @@ namespace ASWERP
 
             dgvAssets.AutoGenerateColumns = false;
             dgvAssets.DataSource = Loader.ReadDatabase();
+            dgvAssetsMgt.AutoGenerateColumns = false;
+            dgvAssetsMgt.DataSource = Loader.ReadAssets();
 
             Forms = new List<Form>();
+        }
+
+        private void oDateTimePicker_TextChanged(object sender, EventArgs e)
+        {
+            var _item = oDateTimePickerList.FirstOrDefault(x => x.Identifier == ((ModDateTimePicker)sender).Identifier);
+            if (_item != null)
+            {
+                dgvAssetsMgt.Rows[_item.CurrentRow].Cells[_item.CurrentColumn].Value = _item.Text.ToString();
+            }
+        }
+
+        private void oDateTimePicker_CloseUp(object sender, EventArgs e)
+        {
+            var _item = oDateTimePickerList.FirstOrDefault(x => x.Identifier == ((ModDateTimePicker)sender).Identifier);
+            if (_item != null)
+            {
+                _item.Visible = false;
+                oDateTimePickerList.Remove(_item);
+            }  
         }
 
         private void exitMnuItem_Click(object sender, EventArgs e)
@@ -136,9 +159,18 @@ namespace ASWERP
 
         private void dgvAssets_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            var _dataId = Convert.ToString(dgvAssets.Rows[e.RowIndex].Cells["AccessId"].Value);
-            if (!String.IsNullOrEmpty(_dataId))
-                ExecuteSavingAssets(Convert.ToInt32(_dataId));
+            var _guidNo = Convert.ToString(dgvAssets.Rows[e.RowIndex].Cells["GuidNo"].Value);
+            if (!String.IsNullOrEmpty(_guidNo))
+            {
+                var _dataId = Convert.ToString(dgvAssets.Rows[e.RowIndex].Cells["AccessId"].Value);
+                if (!String.IsNullOrEmpty(_dataId))
+                    ExecuteSavingAssets(Convert.ToInt32(_dataId));
+            }
+            else
+            {
+                dgvAssets.Rows[e.RowIndex].Cells["GuidNo"].Value = ExecuteSavingAssets();
+            }
+                
         }
 
         private void dgvAssets_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -146,8 +178,9 @@ namespace ASWERP
 
         }
 
-        private void ExecuteSavingAssets(int? _id = null)
+        private string ExecuteSavingAssets(int? _id = null)
         {
+            var _guidNo = Guid.NewGuid().ToString();
             if (!_id.HasValue)
             {
                 List<AssetVM> _details = new List<AssetVM>();
@@ -157,6 +190,7 @@ namespace ASWERP
                     {
                         var _item = new AssetVM()
                         {
+                            GuidNo = _guidNo,
                             AccessId = Convert.ToInt32(dgvAssets.Rows[i].Cells["AccessId"].Value),
                             EmployeeName = Convert.ToInt32(dgvAssets.Rows[i].Cells["EmployeeName"].Value),
                             XLite = Convert.ToString(dgvAssets.Rows[i].Cells["XLite"].Value),
@@ -197,6 +231,7 @@ namespace ASWERP
                 Saver dbSaver = new Saver();
                 dbSaver.Invoke<AssetVM>(Saver.TYPE_ASSETS, null, _details);
             }
+            return _guidNo;
         }
 
         private void dgvAssets_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
@@ -264,6 +299,138 @@ namespace ASWERP
         public void RemoveRegisteredForm(Form _form)
         {
             Forms.Remove(_form);
+        }
+
+        private void dgvAssetsMgt_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DateTime? currentValue = DateTime.Today;
+            if (e.ColumnIndex == 6 || e.ColumnIndex == 9)
+            {
+                if (e.RowIndex >= 0)
+                {
+                    if (!String.IsNullOrEmpty(Convert.ToString(dgvAssetsMgt.Rows[e.RowIndex].Cells["PurchasedOn"].Value)))
+                        currentValue = DateTime.Parse(Convert.ToString(dgvAssetsMgt.Rows[e.RowIndex].Cells["PurchasedOn"].Value));
+
+                    ModDateTimePicker oDateTimePicker = new ModDateTimePicker();
+                    oDateTimePicker.Value = currentValue.Value;
+                    oDateTimePicker.Identifier = Guid.NewGuid().ToString();
+                    oDateTimePicker.CurrentRow = e.RowIndex;
+                    oDateTimePicker.CurrentColumn = e.ColumnIndex;
+
+                    dgvAssetsMgt.Controls.Add(oDateTimePicker);
+
+                    oDateTimePicker.Format = DateTimePickerFormat.Short;
+
+                    Rectangle oRectangle = dgvAssetsMgt.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+
+                    oDateTimePicker.Size = new Size(oRectangle.Width, oRectangle.Height);
+
+                    oDateTimePicker.Location = new Point(oRectangle.X, oRectangle.Y);
+
+                    oDateTimePicker.CloseUp += new EventHandler(oDateTimePicker_CloseUp);
+
+                    oDateTimePicker.TextChanged += new EventHandler(oDateTimePicker_TextChanged);
+
+                    oDateTimePicker.Visible = true;
+
+                    oDateTimePickerList.Add(oDateTimePicker);
+                }
+            }  
+        }
+
+        private void dgvAssetsMgt_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            ExecuteSavingAssetSpecifier();
+        }
+
+        private void dgvAssetsMgt_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            var dlgResult = MessageBox.Show("Are you sure you'd like to delete \"" + Convert.ToString(e.Row.Cells[1].Value) + "\"?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (dlgResult == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void dgvAssetsMgt_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            string _dataId = Convert.ToString(dgvAssetsMgt.Rows[e.RowIndex].Cells["Id"].Value);
+            if (!String.IsNullOrEmpty(_dataId))
+            {
+                ExecuteSavingAssetSpecifier(_dataId);
+            }
+            else
+            {
+                dgvAssetsMgt.Rows[e.RowIndex].Cells["Id"].Value = ExecuteSavingAssetSpecifier();
+            }
+                
+        }
+
+        private string ExecuteSavingAssetSpecifier(string _id = null)
+        {
+            var _guidNo = Guid.NewGuid().ToString();
+            if (String.IsNullOrEmpty(_id))
+            {
+                List<AssetSpecifierVM> _details = new List<AssetSpecifierVM>();
+                for (var i = 0; i < dgvAssetsMgt.Rows.Count; i++)
+                {
+                    if (dgvAssetsMgt.Rows[i].Index != dgvAssetsMgt.NewRowIndex)
+                    {
+                        var _item = new AssetSpecifierVM()
+                        {
+                            Id = _guidNo,
+                            Type = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["AssetType"].Value),
+                            Name = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["AssetName"].Value),
+                            Code = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Code"].Value),
+                            Tag = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Tag"].Value),
+                            Status = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Status"].Value),
+                            Location = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Location"].Value),
+                            PurchasedOn = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["PurchasedOn"].Value),
+                            InvoiceNo = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["InvoiceNo"].Value),
+                            WarrantyDate = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["WarrantyDate"].Value),
+                            Provider = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Provider"].Value),
+                            Remarks = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Remarks"].Value)
+                        };
+                        _details.Add(_item);
+                    }
+                }
+                Saver dbSaver = new Saver();
+                dbSaver.Invoke<AssetSpecifierVM>(Saver.TYPE_ASSETSSPECIFIER, null, _details);
+
+            }
+            else
+            {
+                List<AssetSpecifierVM> _details = Loader.ReadAssets().ToList<AssetSpecifierVM>();
+                for (var i = 0; i < _details.Count(); i++)
+                {
+                    if (_details[i].Id == _id)
+                    {
+                        for (var j = 0; j < dgvAssetsMgt.Rows.Count; j++)
+                        {
+                            if (Convert.ToString(dgvAssetsMgt.Rows[j].Cells["Id"].Value) == _id)
+                            {
+                                _details[i].Type = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["AssetType"].Value);
+                                _details[i].Name = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["AssetName"].Value);
+                                _details[i].Code = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Code"].Value);
+                                _details[i].Tag = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Tag"].Value);
+                                _details[i].Status = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Status"].Value);
+                                _details[i].Location = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Location"].Value);
+                                _details[i].PurchasedOn = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["PurchasedOn"].Value);
+                                _details[i].InvoiceNo = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["InvoiceNo"].Value);
+                                _details[i].WarrantyDate = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["WarrantyDate"].Value);
+                                _details[i].Provider = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Provider"].Value);
+                                _details[i].Remarks = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Remarks"].Value);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                Saver dbSaver = new Saver();
+                dbSaver.Invoke<AssetSpecifierVM>(Saver.TYPE_ASSETSSPECIFIER, null, _details);
+            }
+            return _guidNo;
         }
     }
 }
