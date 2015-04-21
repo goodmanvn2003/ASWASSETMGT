@@ -21,13 +21,15 @@ namespace ASWERP.Models
         public const string TYPE_ASSETS = "AST";
         public const string TYPE_USERS = "USR";
         public const string TYPE_ASSETSSPECIFIER = "ASP";
+        public const string TYPE_PROVIDERS = "PRD";
+        public const string TYPE_EMPLOYEE_ASSETS_ASSIGNMENT = "EAA";
 
         public Saver()
         {
             serializer = new JsonSerializer();
         }
 
-        public void Invoke<T>(string Type, T vm, List<T> list = null)
+        public void Invoke<T>(string Type, T vm, List<T> list = null, string extra = null)
         {
             switch (Type)
             {
@@ -42,6 +44,12 @@ namespace ASWERP.Models
                     break;
                 case TYPE_ASSETSSPECIFIER:
                     StoreAssetsSpecifiers(list);
+                    break;
+                case TYPE_PROVIDERS:
+                    StoreProviders(list);
+                    break;
+                case TYPE_EMPLOYEE_ASSETS_ASSIGNMENT:
+                    StoreEmployeeAssetsAssignment(list, Convert.ToInt32(extra));
                     break;
                 default:
                     break;
@@ -70,6 +78,32 @@ namespace ASWERP.Models
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, vm);
+            }
+        }
+
+        private void StoreEmployeeAssetsAssignment<T>(List<T> list, int employeeId)
+        {
+            try
+            {
+                var _list = list as List<AssignmentVM>;
+
+                ExecuteSaveList<AssignmentVM>(Path.Combine(Loader.employeeAssetsPath.Replace("[[0]]", Convert.ToString(employeeId))), _list);
+            } catch (Exception ex)
+            {
+                var test = ex;
+            }
+        }
+
+        private void StoreProviders<T>(List<T> list)
+        {
+            try
+            {
+                var _list = list as List<ProviderVM>;
+
+                ExecuteSaveList<ProviderVM>(Path.Combine(Loader.providersPath), _list);
+            } catch (Exception ex)
+            {
+                var test = ex;
             }
         }
 

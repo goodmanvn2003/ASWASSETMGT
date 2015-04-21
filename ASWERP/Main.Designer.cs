@@ -30,6 +30,7 @@ namespace ASWERP
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             System.Windows.Forms.BindingSource EmployeeSource;
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,9 +40,30 @@ namespace ASWERP
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsttDoSearch = new System.Windows.Forms.ToolStripTextBox();
             this.dgvAssets = new System.Windows.Forms.DataGridView();
+            this.AccessId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.XLite = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ComputerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ComputerType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmailAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.More = new System.Windows.Forms.DataGridViewLinkColumn();
             this.cmsDvgAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.tcMain = new System.Windows.Forms.TabControl();
+            this.tpAssignment = new System.Windows.Forms.TabPage();
+            this.dgvEmployeeAssetsAssignment = new System.Windows.Forms.DataGridView();
+            this.AssignmentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedAssetName = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ValidOn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ExpiredOn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbUntilRequired = new System.Windows.Forms.CheckBox();
+            this.dtpUntil = new System.Windows.Forms.DateTimePicker();
+            this.cbFromRequired = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dtpFrom = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbEmployee = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tpAssetsMgt = new System.Windows.Forms.TabPage();
             this.dgvAssetsMgt = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,32 +79,27 @@ namespace ASWERP
             this.WarrantyDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnExportExcel = new System.Windows.Forms.Button();
             this.tpProviders = new System.Windows.Forms.TabPage();
             this.dgvProviders = new System.Windows.Forms.DataGridView();
-            this.ContactId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContactName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContactTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Contact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GuidId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProviderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProviderPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProviderContact = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpAssetHandover = new System.Windows.Forms.TabPage();
-            this.AccessId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.XLite = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ComputerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ComputerType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmailAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.More = new System.Windows.Forms.DataGridViewLinkColumn();
             EmployeeSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).BeginInit();
             this.msMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).BeginInit();
             this.cmsDvgAssets.SuspendLayout();
             this.tcMain.SuspendLayout();
+            this.tpAssignment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeAssetsAssignment)).BeginInit();
             this.tpAssetsMgt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssetsMgt)).BeginInit();
             this.tpProviders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProviders)).BeginInit();
             this.tpAssetHandover.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).BeginInit();
             this.SuspendLayout();
             // 
             // msMain
@@ -143,6 +160,7 @@ namespace ASWERP
             this.tsttDoSearch.Size = new System.Drawing.Size(100, 23);
             this.tsttDoSearch.Leave += new System.EventHandler(this.tsttDoSearch_Leave);
             this.tsttDoSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsttDoSearch_KeyDown);
+            this.tsttDoSearch.Click += new System.EventHandler(this.tsttDoSearch_Click);
             this.tsttDoSearch.TextChanged += new System.EventHandler(this.tsttDoSearch_TextChanged);
             // 
             // dgvAssets
@@ -170,6 +188,61 @@ namespace ASWERP
             this.dgvAssets.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvAssets_UserDeletedRow);
             this.dgvAssets.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvAssets_UserDeletingRow);
             // 
+            // AccessId
+            // 
+            this.AccessId.DataPropertyName = "AccessId";
+            this.AccessId.HeaderText = "Id";
+            this.AccessId.Name = "AccessId";
+            this.AccessId.ReadOnly = true;
+            this.AccessId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.AccessId.Width = 64;
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.DataPropertyName = "EmployeeName";
+            this.EmployeeName.DataSource = ((object)(resources.GetObject("EmployeeName.DataSource")));
+            this.EmployeeName.HeaderText = "Employee Name";
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EmployeeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.EmployeeName.Width = 312;
+            // 
+            // XLite
+            // 
+            this.XLite.DataPropertyName = "XLite";
+            this.XLite.HeaderText = "XLite";
+            this.XLite.Name = "XLite";
+            // 
+            // ComputerName
+            // 
+            this.ComputerName.DataPropertyName = "ComputerName";
+            this.ComputerName.HeaderText = "Computer Name";
+            this.ComputerName.Name = "ComputerName";
+            this.ComputerName.Width = 256;
+            // 
+            // ComputerType
+            // 
+            this.ComputerType.DataPropertyName = "ComputerType";
+            this.ComputerType.HeaderText = "";
+            this.ComputerType.Name = "ComputerType";
+            this.ComputerType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ComputerType.Width = 250;
+            // 
+            // EmailAddress
+            // 
+            this.EmailAddress.DataPropertyName = "EmailAddress";
+            this.EmailAddress.HeaderText = "Email Address";
+            this.EmailAddress.Name = "EmailAddress";
+            this.EmailAddress.Width = 256;
+            // 
+            // More
+            // 
+            this.More.HeaderText = "More...";
+            this.More.Name = "More";
+            this.More.Text = "More...";
+            this.More.ToolTipText = "Click here for more information";
+            this.More.UseColumnTextForLinkValue = true;
+            // 
             // cmsDvgAssets
             // 
             this.cmsDvgAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -186,6 +259,7 @@ namespace ASWERP
             // 
             // tcMain
             // 
+            this.tcMain.Controls.Add(this.tpAssignment);
             this.tcMain.Controls.Add(this.tpAssetsMgt);
             this.tcMain.Controls.Add(this.tpProviders);
             this.tcMain.Controls.Add(this.tpAssetHandover);
@@ -194,12 +268,163 @@ namespace ASWERP
             this.tcMain.SelectedIndex = 0;
             this.tcMain.Size = new System.Drawing.Size(1514, 717);
             this.tcMain.TabIndex = 3;
+            this.tcMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tcMain_Selected);
+            this.tcMain.TabIndexChanged += new System.EventHandler(this.tcMain_TabIndexChanged);
+            // 
+            // tpAssignment
+            // 
+            this.tpAssignment.Controls.Add(this.dgvEmployeeAssetsAssignment);
+            this.tpAssignment.Controls.Add(this.cbUntilRequired);
+            this.tpAssignment.Controls.Add(this.dtpUntil);
+            this.tpAssignment.Controls.Add(this.cbFromRequired);
+            this.tpAssignment.Controls.Add(this.label3);
+            this.tpAssignment.Controls.Add(this.dtpFrom);
+            this.tpAssignment.Controls.Add(this.label2);
+            this.tpAssignment.Controls.Add(this.cbEmployee);
+            this.tpAssignment.Controls.Add(this.label1);
+            this.tpAssignment.Location = new System.Drawing.Point(4, 22);
+            this.tpAssignment.Name = "tpAssignment";
+            this.tpAssignment.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAssignment.Size = new System.Drawing.Size(1506, 691);
+            this.tpAssignment.TabIndex = 3;
+            this.tpAssignment.Text = "Assignment";
+            this.tpAssignment.UseVisualStyleBackColor = true;
+            // 
+            // dgvEmployeeAssetsAssignment
+            // 
+            this.dgvEmployeeAssetsAssignment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmployeeAssetsAssignment.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AssignmentId,
+            this.AssignedAssetName,
+            this.ValidOn,
+            this.ExpiredOn});
+            this.dgvEmployeeAssetsAssignment.Location = new System.Drawing.Point(9, 39);
+            this.dgvEmployeeAssetsAssignment.Name = "dgvEmployeeAssetsAssignment";
+            this.dgvEmployeeAssetsAssignment.Size = new System.Drawing.Size(1491, 646);
+            this.dgvEmployeeAssetsAssignment.TabIndex = 8;
+            this.dgvEmployeeAssetsAssignment.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployeeAssetsAssignment_CellClick);
+            this.dgvEmployeeAssetsAssignment.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployeeAssetsAssignment_CellEndEdit);
+            this.dgvEmployeeAssetsAssignment.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvEmployeeAssetsAssignment_DataError);
+            this.dgvEmployeeAssetsAssignment.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvEmployeeAssetsAssignment_UserAddedRow);
+            this.dgvEmployeeAssetsAssignment.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvEmployeeAssetsAssignment_UserDeletedRow);
+            this.dgvEmployeeAssetsAssignment.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvEmployeeAssetsAssignment_UserDeletingRow);
+            // 
+            // AssignmentId
+            // 
+            this.AssignmentId.DataPropertyName = "AssignmentId";
+            this.AssignmentId.HeaderText = "AssignmentId";
+            this.AssignmentId.Name = "AssignmentId";
+            this.AssignmentId.ReadOnly = true;
+            this.AssignmentId.Visible = false;
+            // 
+            // AssignedAssetName
+            // 
+            this.AssignedAssetName.DataPropertyName = "AssignedAssetName";
+            this.AssignedAssetName.HeaderText = "Asset Name";
+            this.AssignedAssetName.Name = "AssignedAssetName";
+            this.AssignedAssetName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AssignedAssetName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AssignedAssetName.Width = 450;
+            // 
+            // ValidOn
+            // 
+            this.ValidOn.DataPropertyName = "ValidOn";
+            this.ValidOn.HeaderText = "Valid On";
+            this.ValidOn.Name = "ValidOn";
+            // 
+            // ExpiredOn
+            // 
+            this.ExpiredOn.DataPropertyName = "ExpiredOn";
+            this.ExpiredOn.HeaderText = "Expired On";
+            this.ExpiredOn.Name = "ExpiredOn";
+            // 
+            // cbUntilRequired
+            // 
+            this.cbUntilRequired.AutoSize = true;
+            this.cbUntilRequired.Checked = true;
+            this.cbUntilRequired.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbUntilRequired.Location = new System.Drawing.Point(927, 12);
+            this.cbUntilRequired.Name = "cbUntilRequired";
+            this.cbUntilRequired.Size = new System.Drawing.Size(15, 14);
+            this.cbUntilRequired.TabIndex = 7;
+            this.cbUntilRequired.UseVisualStyleBackColor = true;
+            this.cbUntilRequired.CheckedChanged += new System.EventHandler(this.cbUntilRequired_CheckedChanged);
+            // 
+            // dtpUntil
+            // 
+            this.dtpUntil.Enabled = false;
+            this.dtpUntil.Location = new System.Drawing.Point(721, 9);
+            this.dtpUntil.Name = "dtpUntil";
+            this.dtpUntil.Size = new System.Drawing.Size(200, 20);
+            this.dtpUntil.TabIndex = 6;
+            // 
+            // cbFromRequired
+            // 
+            this.cbFromRequired.AutoSize = true;
+            this.cbFromRequired.Checked = true;
+            this.cbFromRequired.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFromRequired.Location = new System.Drawing.Point(663, 12);
+            this.cbFromRequired.Name = "cbFromRequired";
+            this.cbFromRequired.Size = new System.Drawing.Size(15, 14);
+            this.cbFromRequired.TabIndex = 5;
+            this.cbFromRequired.UseVisualStyleBackColor = true;
+            this.cbFromRequired.CheckedChanged += new System.EventHandler(this.cbFromRequired_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(684, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Until:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dtpFrom
+            // 
+            this.dtpFrom.Enabled = false;
+            this.dtpFrom.Location = new System.Drawing.Point(456, 9);
+            this.dtpFrom.Name = "dtpFrom";
+            this.dtpFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtpFrom.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(417, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(33, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "From:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cbEmployee
+            // 
+            this.cbEmployee.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbEmployee.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbEmployee.FormattingEnabled = true;
+            this.cbEmployee.Location = new System.Drawing.Point(68, 9);
+            this.cbEmployee.Name = "cbEmployee";
+            this.cbEmployee.Size = new System.Drawing.Size(343, 21);
+            this.cbEmployee.TabIndex = 1;
+            this.cbEmployee.Text = "Pick an employee...";
+            this.cbEmployee.SelectedValueChanged += new System.EventHandler(this.cbEmployee_SelectedValueChanged);
+            this.cbEmployee.TextChanged += new System.EventHandler(this.cbEmployee_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Employee:";
             // 
             // tpAssetsMgt
             // 
             this.tpAssetsMgt.Controls.Add(this.dgvAssetsMgt);
             this.tpAssetsMgt.Controls.Add(this.button3);
-            this.tpAssetsMgt.Controls.Add(this.button2);
+            this.tpAssetsMgt.Controls.Add(this.btnExportExcel);
             this.tpAssetsMgt.Location = new System.Drawing.Point(4, 22);
             this.tpAssetsMgt.Name = "tpAssetsMgt";
             this.tpAssetsMgt.Padding = new System.Windows.Forms.Padding(3);
@@ -229,6 +454,7 @@ namespace ASWERP
             this.dgvAssetsMgt.Size = new System.Drawing.Size(1494, 650);
             this.dgvAssetsMgt.TabIndex = 3;
             this.dgvAssetsMgt.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssetsMgt_CellClick);
+            this.dgvAssetsMgt.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssetsMgt_CellContentClick);
             this.dgvAssetsMgt.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssetsMgt_CellEndEdit);
             this.dgvAssetsMgt.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvAssetsMgt_UserDeletedRow);
             this.dgvAssetsMgt.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvAssetsMgt_UserDeletingRow);
@@ -327,6 +553,7 @@ namespace ASWERP
             // 
             // button3
             // 
+            this.button3.Enabled = false;
             this.button3.Location = new System.Drawing.Point(117, 6);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
@@ -334,14 +561,15 @@ namespace ASWERP
             this.button3.Text = "&Print";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnExportExcel
             // 
-            this.button2.Location = new System.Drawing.Point(6, 6);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(105, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "&Export To Excel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnExportExcel.Location = new System.Drawing.Point(6, 6);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(105, 23);
+            this.btnExportExcel.TabIndex = 1;
+            this.btnExportExcel.Text = "&Export To Excel";
+            this.btnExportExcel.UseVisualStyleBackColor = true;
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // tpProviders
             // 
@@ -358,42 +586,45 @@ namespace ASWERP
             // 
             this.dgvProviders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProviders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ContactId,
-            this.ContactName,
-            this.ContactTel,
-            this.Contact});
+            this.GuidId,
+            this.ProviderName,
+            this.ProviderPhone,
+            this.ProviderContact});
             this.dgvProviders.Location = new System.Drawing.Point(6, 6);
             this.dgvProviders.Name = "dgvProviders";
             this.dgvProviders.Size = new System.Drawing.Size(1494, 679);
             this.dgvProviders.TabIndex = 0;
+            this.dgvProviders.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProviders_CellEndEdit);
+            this.dgvProviders.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvProviders_UserDeletedRow);
+            this.dgvProviders.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvProviders_UserDeletingRow);
             // 
-            // ContactId
+            // GuidId
             // 
-            this.ContactId.DataPropertyName = "ContactId";
-            this.ContactId.HeaderText = "Id";
-            this.ContactId.Name = "ContactId";
-            this.ContactId.ReadOnly = true;
-            this.ContactId.Width = 64;
+            this.GuidId.DataPropertyName = "GuidId";
+            this.GuidId.HeaderText = "GuidId";
+            this.GuidId.Name = "GuidId";
+            this.GuidId.ReadOnly = true;
+            this.GuidId.Visible = false;
             // 
-            // ContactName
+            // ProviderName
             // 
-            this.ContactName.DataPropertyName = "ContactName";
-            this.ContactName.HeaderText = "Name";
-            this.ContactName.Name = "ContactName";
-            this.ContactName.Width = 300;
+            this.ProviderName.DataPropertyName = "ProviderName";
+            this.ProviderName.HeaderText = "Name";
+            this.ProviderName.Name = "ProviderName";
+            this.ProviderName.Width = 300;
             // 
-            // ContactTel
+            // ProviderPhone
             // 
-            this.ContactTel.DataPropertyName = "ContactTel";
-            this.ContactTel.HeaderText = "Phone";
-            this.ContactTel.Name = "ContactTel";
+            this.ProviderPhone.DataPropertyName = "ProviderPhone";
+            this.ProviderPhone.HeaderText = "Phone";
+            this.ProviderPhone.Name = "ProviderPhone";
             // 
-            // Contact
+            // ProviderContact
             // 
-            this.Contact.DataPropertyName = "Contact";
-            this.Contact.HeaderText = "Contact";
-            this.Contact.Name = "Contact";
-            this.Contact.Width = 300;
+            this.ProviderContact.DataPropertyName = "ProviderContact";
+            this.ProviderContact.HeaderText = "Contact";
+            this.ProviderContact.Name = "ProviderContact";
+            this.ProviderContact.Width = 300;
             // 
             // tpAssetHandover
             // 
@@ -405,66 +636,6 @@ namespace ASWERP
             this.tpAssetHandover.TabIndex = 1;
             this.tpAssetHandover.Text = "Asset Handover";
             this.tpAssetHandover.UseVisualStyleBackColor = true;
-            // 
-            // AccessId
-            // 
-            this.AccessId.DataPropertyName = "AccessId";
-            this.AccessId.HeaderText = "Id";
-            this.AccessId.Name = "AccessId";
-            this.AccessId.ReadOnly = true;
-            this.AccessId.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.AccessId.Width = 64;
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.DataPropertyName = "EmployeeName";
-            this.EmployeeName.HeaderText = "Employee Name";
-            this.EmployeeName.Name = "EmployeeName";
-            this.EmployeeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.EmployeeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.EmployeeName.Width = 312;
-
-            /* TODO: Custom codes, should be removed when saving designer */
-            this.EmployeeName.DisplayMember = "EmployeeName";
-            this.EmployeeName.ValueMember = "Id";
-            this.EmployeeName.DataSource = Loader.UsersSelectList();
-            /* */
-            // 
-            // XLite
-            // 
-            this.XLite.DataPropertyName = "XLite";
-            this.XLite.HeaderText = "XLite";
-            this.XLite.Name = "XLite";
-            // 
-            // ComputerName
-            // 
-            this.ComputerName.DataPropertyName = "ComputerName";
-            this.ComputerName.HeaderText = "Computer Name";
-            this.ComputerName.Name = "ComputerName";
-            this.ComputerName.Width = 256;
-            // 
-            // ComputerType
-            // 
-            this.ComputerType.DataPropertyName = "ComputerType";
-            this.ComputerType.HeaderText = "";
-            this.ComputerType.Name = "ComputerType";
-            this.ComputerType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ComputerType.Width = 250;
-            // 
-            // EmailAddress
-            // 
-            this.EmailAddress.DataPropertyName = "EmailAddress";
-            this.EmailAddress.HeaderText = "Email Address";
-            this.EmailAddress.Name = "EmailAddress";
-            this.EmailAddress.Width = 256;
-            // 
-            // More
-            // 
-            this.More.HeaderText = "More...";
-            this.More.Name = "More";
-            this.More.Text = "More...";
-            this.More.ToolTipText = "Click here for more information";
-            this.More.UseColumnTextForLinkValue = true;
             // 
             // Main
             // 
@@ -482,17 +653,20 @@ namespace ASWERP
             this.Text = "Assets Management System";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Shown += new System.EventHandler(this.Main_Shown);
-            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).EndInit();
             this.msMain.ResumeLayout(false);
             this.msMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).EndInit();
             this.cmsDvgAssets.ResumeLayout(false);
             this.tcMain.ResumeLayout(false);
+            this.tpAssignment.ResumeLayout(false);
+            this.tpAssignment.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployeeAssetsAssignment)).EndInit();
             this.tpAssetsMgt.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssetsMgt)).EndInit();
             this.tpProviders.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProviders)).EndInit();
             this.tpAssetHandover.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,13 +689,9 @@ namespace ASWERP
         private System.Windows.Forms.TabPage tpAssetHandover;
         private System.Windows.Forms.DataGridView dgvAssetsMgt;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnExportExcel;
         private System.Windows.Forms.TabPage tpProviders;
         private System.Windows.Forms.DataGridView dgvProviders;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ContactId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ContactName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ContactTel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Contact;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn AssetType;
         private System.Windows.Forms.DataGridViewTextBoxColumn AssetName;
@@ -541,6 +711,24 @@ namespace ASWERP
         private System.Windows.Forms.DataGridViewTextBoxColumn ComputerType;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmailAddress;
         private System.Windows.Forms.DataGridViewLinkColumn More;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GuidId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProviderName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProviderPhone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProviderContact;
+        private System.Windows.Forms.TabPage tpAssignment;
+        private System.Windows.Forms.CheckBox cbUntilRequired;
+        private System.Windows.Forms.DateTimePicker dtpUntil;
+        private System.Windows.Forms.CheckBox cbFromRequired;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DateTimePicker dtpFrom;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cbEmployee;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dgvEmployeeAssetsAssignment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignmentId;
+        private System.Windows.Forms.DataGridViewComboBoxColumn AssignedAssetName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ValidOn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ExpiredOn;
 
     }
 }

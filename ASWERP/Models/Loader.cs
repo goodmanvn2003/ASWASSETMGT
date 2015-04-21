@@ -25,6 +25,8 @@ namespace ASWERP.Models
         public static string usersFilePath = Path.Combine(dbPath, "users.json");
         public static string emPath = Path.Combine(appPath, "Database", "em");
         public static string assetsPath = Path.Combine(dbPath, "assets.json");
+        public static string providersPath = Path.Combine(dbPath, "providers.json");
+        public static string employeeAssetsPath = Path.Combine(emPath, "[[0]]_assignment.json");
 
         public static void Initilize()
         {
@@ -38,6 +40,33 @@ namespace ASWERP.Models
                 Directory.CreateDirectory(templatePath);
             if (!Directory.Exists(documentsPath))
                 Directory.CreateDirectory(documentsPath);
+        }
+
+        public static DataTable ReadAssignment(int employeeId)
+        {
+            try
+            {
+                var json = File.ReadAllText(employeeAssetsPath.Replace("[[0]]", Convert.ToString(employeeId)));
+
+                return JsonConvert.DeserializeObject<List<AssignmentVM>>(json).ToDataTable<AssignmentVM>();
+            }
+            catch (Exception ex)
+            {
+                return new DataTable();
+            }
+        }
+
+        public static DataTable ReadProviders()
+        {
+            try
+            {
+                var json = File.ReadAllText(providersPath);
+
+                return JsonConvert.DeserializeObject<List<ProviderVM>>(json).ToDataTable<ProviderVM>();
+            } catch (Exception ex)
+            {
+                return new DataTable();
+            }
         }
 
         public static DataTable ReadAssets()
@@ -68,6 +97,20 @@ namespace ASWERP.Models
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        public static List<MicroAssetSpecifierVM> AssetsSelectList()
+        {
+            try
+            {
+                var json = File.ReadAllText(assetsPath);
+
+                return JsonConvert.DeserializeObject<List<MicroAssetSpecifierVM>>(json).OrderBy(x => x.Name).ToList();
+            }
+            catch (Exception ex)
+            {
+                return new List<MicroAssetSpecifierVM>();
             }
         }
 
