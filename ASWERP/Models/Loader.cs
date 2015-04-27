@@ -128,6 +128,21 @@ namespace ASWERP.Models
             }
         }
 
+        public static List<MicroProviderVM> ProvidersSelectList()
+        {
+            try
+            {
+                var json = File.ReadAllText(providersPath);
+
+                return JsonConvert.DeserializeObject<List<MicroProviderVM>>(json).OrderBy(x => x.ProviderName).ToList();
+            }
+            catch (Exception ex)
+            {
+                return new List<MicroProviderVM>();
+            }
+
+        }
+
         public static DataTable ReadUsers()
         {
             try

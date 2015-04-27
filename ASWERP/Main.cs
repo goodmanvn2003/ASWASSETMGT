@@ -53,6 +53,9 @@ namespace ASWERP
             this.AssignedAssetName.ValueMember = "Id";
             this.AssignedAssetName.DataSource = Loader.AssetsSelectList();
 
+            this.ProviderTitle.DisplayMember = "ProviderName";
+            this.ProviderTitle.ValueMember = "GuidId";
+
             Forms = new List<Form>();
         }
 
@@ -372,7 +375,7 @@ namespace ASWERP
                             PurchasedOn = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["PurchasedOn"].Value),
                             InvoiceNo = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["InvoiceNo"].Value),
                             WarrantyDate = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["WarrantyDate"].Value),
-                            Provider = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Provider"].Value),
+                            ProviderName = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["ProviderTitle"].Value),
                             Remarks = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Remarks"].Value)
                         };
 
@@ -408,7 +411,7 @@ namespace ASWERP
                                 _details[i].PurchasedOn = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["PurchasedOn"].Value);
                                 _details[i].InvoiceNo = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["InvoiceNo"].Value);
                                 _details[i].WarrantyDate = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["WarrantyDate"].Value);
-                                _details[i].Provider = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Provider"].Value);
+                                _details[i].ProviderName = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["ProviderTitle"].Value);
                                 _details[i].Remarks = Convert.ToString(dgvAssetsMgt.Rows[i].Cells["Remarks"].Value);
                                 break;
                             }
@@ -659,6 +662,8 @@ namespace ASWERP
         { 
             if (e.TabPage.Name == "tpAssignment")
                 this.AssignedAssetName.DataSource = Loader.AssetsSelectList();
+            if (e.TabPage.Name == "tpAssetsMgt")
+                this.ProviderTitle.DataSource = Loader.ProvidersSelectList();
         }
 
         private void dgvEmployeeAssetsAssignment_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -715,6 +720,11 @@ namespace ASWERP
         private void dgvEmployeeAssetsAssignment_UserAddedRow(object sender, DataGridViewRowEventArgs e)
         {
             dgvEmployeeAssetsAssignment.Invalidate();
+        }
+
+        private void dgvAssetsMgt_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
         }
     }
 }

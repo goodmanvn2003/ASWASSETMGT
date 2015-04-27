@@ -30,8 +30,8 @@ namespace ASWERP
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             System.Windows.Forms.BindingSource EmployeeSource;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMnuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +75,7 @@ namespace ASWERP
             this.Location = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.PurchasedOn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InvoiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Provider = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ProviderTitle = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.WarrantyDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button3 = new System.Windows.Forms.Button();
@@ -88,6 +88,7 @@ namespace ASWERP
             this.ProviderContact = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpAssetHandover = new System.Windows.Forms.TabPage();
             EmployeeSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).BeginInit();
             this.msMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).BeginInit();
             this.cmsDvgAssets.SuspendLayout();
@@ -99,7 +100,6 @@ namespace ASWERP
             this.tpProviders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProviders)).BeginInit();
             this.tpAssetHandover.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).BeginInit();
             this.SuspendLayout();
             // 
             // msMain
@@ -446,7 +446,7 @@ namespace ASWERP
             this.Location,
             this.PurchasedOn,
             this.InvoiceNo,
-            this.Provider,
+            this.ProviderTitle,
             this.WarrantyDate,
             this.Remarks});
             this.dgvAssetsMgt.Location = new System.Drawing.Point(6, 35);
@@ -456,6 +456,7 @@ namespace ASWERP
             this.dgvAssetsMgt.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssetsMgt_CellClick);
             this.dgvAssetsMgt.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssetsMgt_CellContentClick);
             this.dgvAssetsMgt.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssetsMgt_CellEndEdit);
+            this.dgvAssetsMgt.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvAssetsMgt_DataError);
             this.dgvAssetsMgt.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvAssetsMgt_UserDeletedRow);
             this.dgvAssetsMgt.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvAssetsMgt_UserDeletingRow);
             // 
@@ -529,13 +530,14 @@ namespace ASWERP
             this.InvoiceNo.Name = "InvoiceNo";
             this.InvoiceNo.Width = 110;
             // 
-            // Provider
+            // ProviderTitle
             // 
-            this.Provider.DataPropertyName = "Provider";
-            this.Provider.HeaderText = "Provider";
-            this.Provider.Name = "Provider";
-            this.Provider.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Provider.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ProviderTitle.DataPropertyName = "ProviderName";
+            this.ProviderTitle.HeaderText = "Provider";
+            this.ProviderTitle.Name = "ProviderTitle";
+            this.ProviderTitle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ProviderTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ProviderTitle.Width = 400;
             // 
             // WarrantyDate
             // 
@@ -653,6 +655,7 @@ namespace ASWERP
             this.Text = "Assets Management System";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Main_FormClosed);
             this.Shown += new System.EventHandler(this.Main_Shown);
+            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).EndInit();
             this.msMain.ResumeLayout(false);
             this.msMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssets)).EndInit();
@@ -666,7 +669,6 @@ namespace ASWERP
             this.tpProviders.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProviders)).EndInit();
             this.tpAssetHandover.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -692,18 +694,6 @@ namespace ASWERP
         private System.Windows.Forms.Button btnExportExcel;
         private System.Windows.Forms.TabPage tpProviders;
         private System.Windows.Forms.DataGridView dgvProviders;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssetType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssetName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Code;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Tag;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Status;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Location;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PurchasedOn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNo;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Provider;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WarrantyDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
         private System.Windows.Forms.DataGridViewTextBoxColumn AccessId;
         private System.Windows.Forms.DataGridViewComboBoxColumn EmployeeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn XLite;
@@ -729,6 +719,18 @@ namespace ASWERP
         private System.Windows.Forms.DataGridViewComboBoxColumn AssignedAssetName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ValidOn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExpiredOn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssetType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssetName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Code;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tag;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Status;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Location;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PurchasedOn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNo;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ProviderTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WarrantyDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
 
     }
 }
