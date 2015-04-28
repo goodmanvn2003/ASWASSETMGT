@@ -27,6 +27,9 @@ namespace ASWERP.Models
         public static string assetsPath = Path.Combine(dbPath, "assets.json");
         public static string providersPath = Path.Combine(dbPath, "providers.json");
         public static string employeeAssetsPath = Path.Combine(emPath, "[[0]]_assignment.json");
+        public static string authPath = Path.Combine(appPath, "Auth");
+        public static string authFilePath = Path.Combine(authPath, "d.conf");
+        public static string defaultAuthFileContent = "[{\"Guid\":\"[[0]]\", \"Login\":\"admin\", \"Hash\":\"87a240be40a5b0ae2ea9d99bb923215f\", \"Roles\": [\"CanManageProvider\",\"CanManageAssets\",\"CanManageAuthenticators\",\"CanManageAssignments\",\"CanManageEmployees\",\"CanExportImportDocuments\"]}]";
 
         public static void Initilize()
         {
@@ -40,6 +43,31 @@ namespace ASWERP.Models
                 Directory.CreateDirectory(templatePath);
             if (!Directory.Exists(documentsPath))
                 Directory.CreateDirectory(documentsPath);
+            if (!Directory.Exists(authPath))
+                Directory.CreateDirectory(authPath);
+            if (!File.Exists(authFilePath))
+            {
+                var _tAuthFile = File.CreateText(authFilePath);
+                _tAuthFile.Write(defaultAuthFileContent.Replace("[[0]]", Guid.NewGuid().ToString()));
+                _tAuthFile.Close();
+            }           
+
+            // File.SetAttributes(authFilePath, FileAttributes.Hidden);
+            // (new DirectoryInfo(authPath)).Attributes = FileAttributes.Directory | FileAttributes.Hidden;    
+        }
+
+        public static List<AuthVM> GetAuthenticators()
+        {
+            try
+            {
+                var json = File.ReadAllText(authFilePath);
+
+                return JsonConvert.DeserializeObject<List<AuthVM>>(json);
+            }
+            catch (Exception ex)
+            {
+                return new List<AuthVM>();
+            }
         }
 
         public static DataTable ReadAssignment(int employeeId)

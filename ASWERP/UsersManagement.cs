@@ -165,7 +165,6 @@ namespace ASWERP
         private void UsersMgt_FormClosing(object sender, FormClosingEventArgs e)
         {
             Parent.RefreshData();
-            Parent.RemoveRegisteredForm(this);
         }
 
         private void dgvUsers_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)

@@ -146,10 +146,17 @@ namespace ASWERP
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            foreach (var form in Forms)
+            try
             {
-                form.Close();
+                foreach (var form in Forms)
+                {
+                    form.Close();
+                }
+            } catch (Exception ex)
+            {
+
             }
+
             this.login.Show();
         }
 
@@ -288,6 +295,16 @@ namespace ASWERP
             UsersMgt _userMgt = new UsersMgt();
             if (!Forms.Any(x => x.GetType().Name == _userMgt.GetType().Name)) {
                 Forms.Add(_userMgt);
+                _userMgt.Parent = this;
+
+                _userMgt.Show();
+            }
+            else
+            {
+                var _formItem = Forms.FirstOrDefault(x => x.GetType().Name == _userMgt.GetType().Name);
+                Forms.Remove(_formItem);
+                Forms.Add(_userMgt);
+
                 _userMgt.Parent = this;
 
                 _userMgt.Show();
@@ -708,11 +725,11 @@ namespace ASWERP
                 var _item = _list.FirstOrDefault(x => x.AssignmentId == _deletable);
                 if (_item != null)
                 {
-                    _list.Remove(_item);
+                    e.Cancel = true;
+                    _item.AssignedAssetName = String.Empty;
+
                     Saver _saver = new Saver();
                     _saver.Invoke<AssignmentVM>(Saver.TYPE_EMPLOYEE_ASSETS_ASSIGNMENT, null, _list, Convert.ToString(cbEmployee.SelectedValue));
-
-                    dgvEmployeeAssetsAssignment.Rows[e.RowIndex].Visible = false;
                 }
             }
         }
@@ -725,6 +742,27 @@ namespace ASWERP
         private void dgvAssetsMgt_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
+        }
+
+        private void tsmUsersRights_Click(object sender, EventArgs e)
+        {
+            AuthManagement _authMgt = new AuthManagement();
+            if (!Forms.Any(x => x.GetType().Name == _authMgt.GetType().Name))
+            {
+                Forms.Add(_authMgt);
+                _authMgt.Parent = this;
+
+                _authMgt.Show();
+            } else
+            {
+                var _formItem = Forms.FirstOrDefault(x => x.GetType().Name == _authMgt.GetType().Name);
+                Forms.Remove(_formItem);
+                Forms.Add(_authMgt);
+
+                _authMgt.Parent = this;
+
+                _authMgt.Show();
+            }
         }
     }
 }

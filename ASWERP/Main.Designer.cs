@@ -87,6 +87,7 @@ namespace ASWERP
             this.ProviderPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProviderContact = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpAssetHandover = new System.Windows.Forms.TabPage();
+            this.tsmUsersRights = new System.Windows.Forms.ToolStripMenuItem();
             EmployeeSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(EmployeeSource)).BeginInit();
             this.msMain.SuspendLayout();
@@ -132,7 +133,8 @@ namespace ASWERP
             // managementToolStripMenuItem
             // 
             this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiUsersMgt});
+            this.tsmiUsersMgt,
+            this.tsmUsersRights});
             this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
             this.managementToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
             this.managementToolStripMenuItem.Text = "&Management";
@@ -140,7 +142,7 @@ namespace ASWERP
             // tsmiUsersMgt
             // 
             this.tsmiUsersMgt.Name = "tsmiUsersMgt";
-            this.tsmiUsersMgt.Size = new System.Drawing.Size(131, 22);
+            this.tsmiUsersMgt.Size = new System.Drawing.Size(152, 22);
             this.tsmiUsersMgt.Text = "Employees";
             this.tsmiUsersMgt.Click += new System.EventHandler(this.tsmiUsersMgt_Click);
             // 
@@ -639,6 +641,13 @@ namespace ASWERP
             this.tpAssetHandover.Text = "Asset Handover";
             this.tpAssetHandover.UseVisualStyleBackColor = true;
             // 
+            // tsmUsersRights
+            // 
+            this.tsmUsersRights.Name = "tsmUsersRights";
+            this.tsmUsersRights.Size = new System.Drawing.Size(152, 22);
+            this.tsmUsersRights.Text = "&Users && Rights";
+            this.tsmUsersRights.Click += new System.EventHandler(this.tsmUsersRights_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -731,6 +740,7 @@ namespace ASWERP
         private System.Windows.Forms.DataGridViewComboBoxColumn ProviderTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn WarrantyDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
+        private System.Windows.Forms.ToolStripMenuItem tsmUsersRights;
 
     }
 }

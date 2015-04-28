@@ -85,6 +85,12 @@
     <Compile Include="AssetsHandover.Designer.cs">
       <DependentUpon>AssetsHandover.cs</DependentUpon>
     </Compile>
+    <Compile Include="AuthManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthManagement.Designer.cs">
+      <DependentUpon>AuthManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="DateTimeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,7 @@
     <Compile Include="Models\AssetsHandoverDetails.cs" />
     <Compile Include="Models\AssetsHandoverVM.cs" />
     <Compile Include="Models\Authenticator.cs" />
+    <Compile Include="Models\AuthVM.cs" />
     <Compile Include="Models\DocumentParser.cs" />
     <Compile Include="Models\Loader.cs" />
     <Compile Include="Models\ModDateTimePicker.cs">
@@ -122,6 +129,9 @@
     </Compile>
     <EmbeddedResource Include="AssetsHandover.resx">
       <DependentUpon>AssetsHandover.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthManagement.resx">
+      <DependentUpon>AuthManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DateTimeForm.resx">
       <DependentUpon>DateTimeForm.cs</DependentUpon>

@@ -23,6 +23,7 @@ namespace ASWERP.Models
         public const string TYPE_ASSETSSPECIFIER = "ASP";
         public const string TYPE_PROVIDERS = "PRD";
         public const string TYPE_EMPLOYEE_ASSETS_ASSIGNMENT = "EAA";
+        public const string TYPE_AUTHENTICATOR = "AUR";
 
         public Saver()
         {
@@ -51,6 +52,9 @@ namespace ASWERP.Models
                 case TYPE_EMPLOYEE_ASSETS_ASSIGNMENT:
                     StoreEmployeeAssetsAssignment(list, Convert.ToInt32(extra));
                     break;
+                case TYPE_AUTHENTICATOR:
+                    StoreAuthenticators(list);
+                    break;
                 default:
                     break;
             }
@@ -78,6 +82,20 @@ namespace ASWERP.Models
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, vm);
+            }
+        }
+
+        private void StoreAuthenticators<T>(List<T> list)
+        {
+            try
+            {
+                var _list = list as List<AuthVM>;
+
+                ExecuteSaveList<AuthVM>(Loader.authFilePath, _list);
+            }
+            catch (Exception ex)
+            {
+                var test = ex;
             }
         }
 

@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvUsers = new System.Windows.Forms.DataGridView();
-            this.txtUserSearch = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.GuidNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +38,9 @@
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Department = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Office = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.txtUserSearch = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,36 +66,6 @@
             this.dgvUsers.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvUsers_EditingControlShowing);
             this.dgvUsers.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvUsers_UserDeletedRow);
             this.dgvUsers.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvUsers_UserDeletingRow);
-            // 
-            // txtUserSearch
-            // 
-            this.txtUserSearch.Location = new System.Drawing.Point(66, 12);
-            this.txtUserSearch.Name = "txtUserSearch";
-            this.txtUserSearch.Size = new System.Drawing.Size(254, 20);
-            this.txtUserSearch.TabIndex = 1;
-            this.txtUserSearch.TextChanged += new System.EventHandler(this.txtUserSearch_TextChanged);
-            this.txtUserSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUserSearch_KeyDown);
-            this.txtUserSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUserSearch_KeyPress);
-            this.txtUserSearch.Leave += new System.EventHandler(this.txtUserSearch_Leave);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Keyword";
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(326, 10);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
-            this.btnSearch.TabIndex = 3;
-            this.btnSearch.Text = "&Search";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // GuidNo
             // 
@@ -174,6 +144,36 @@
             this.Office.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Office.Width = 92;
             // 
+            // txtUserSearch
+            // 
+            this.txtUserSearch.Location = new System.Drawing.Point(66, 12);
+            this.txtUserSearch.Name = "txtUserSearch";
+            this.txtUserSearch.Size = new System.Drawing.Size(254, 20);
+            this.txtUserSearch.TabIndex = 1;
+            this.txtUserSearch.TextChanged += new System.EventHandler(this.txtUserSearch_TextChanged);
+            this.txtUserSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUserSearch_KeyDown);
+            this.txtUserSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUserSearch_KeyPress);
+            this.txtUserSearch.Leave += new System.EventHandler(this.txtUserSearch_Leave);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Keyword";
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(326, 10);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 3;
+            this.btnSearch.Text = "&Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // UsersMgt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,7 +186,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "UsersMgt";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Users Management";
+            this.Text = "Employees Management";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UsersMgt_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);
