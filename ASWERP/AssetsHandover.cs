@@ -22,7 +22,7 @@ namespace ASWERP
 
         public Main Parent = null;
 
-        public int Id { get; set; }
+        public int? EmployeeId { get; set; }
         public string Name { get; set; }
 
         private const string REGEX_CPU_DDRAM = "^(([a-zA-Z0-9 ]|[a-zA-Z0-9])+,([a-zA-Z0-9 ]|[a-zA-Z0-9])+){1}$";
@@ -54,6 +54,7 @@ namespace ASWERP
 
             // Load other data from JSON if any
             ViewModel = Loader.ReadAssetHandover(_id);
+            
             ViewModel.AccessId = _id;
             ViewModel.Name = !String.IsNullOrEmpty(Loader.GetUserName(_id)) ? Loader.GetUserName(_id) : UNSPECIFIED_USERNAME;
 
