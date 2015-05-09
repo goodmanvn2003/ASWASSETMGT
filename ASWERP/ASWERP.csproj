@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="Models\AssetsHandoverDetails.cs" />
     <Compile Include="Models\AssetsHandoverVM.cs" />
+    <Compile Include="Models\Auth.cs" />
     <Compile Include="Models\Authenticator.cs" />
     <Compile Include="Models\AuthVM.cs" />
     <Compile Include="Models\DocumentParser.cs" />

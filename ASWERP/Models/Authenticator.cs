@@ -12,12 +12,12 @@ namespace ASWERP.Models
     {
         public static List<AuthenticatorRoleVM> Roles = new List<AuthenticatorRoleVM>()
         {
-            new AuthenticatorRoleVM() { Id = "CMP", Role = "CanManageProvider", Name = "Can Manage Provider" },
-            new AuthenticatorRoleVM() { Id = "CMA", Role = "CanManageAssets", Name = "Can Manage Assets" },
-            new AuthenticatorRoleVM() { Id = "CMU", Role = "CanManageAuthenticators", Name = "Can Manage Authenticators" },
-            new AuthenticatorRoleVM() { Id = "CMS", Role = "CanManageAssignments", Name = "Can Manage Assignments" },
-            new AuthenticatorRoleVM() { Id = "CME", Role = "CanManageEmployees", Name = "Can Manage Employees" },
-            new AuthenticatorRoleVM() { Id = "CEI", Role = "CanExportImportDocuments", Name = "Can Export and Import Documents" }
+            new AuthenticatorRoleVM() { Id = "CMP", Role = Auth.ROLE_CAN_MANAGE_PROVIDER, Name = "Can Manage Provider" },
+            new AuthenticatorRoleVM() { Id = "CMA", Role = Auth.ROLE_CAN_MANAGE_ASSETS, Name = "Can Manage Assets" },
+            new AuthenticatorRoleVM() { Id = "CMU", Role = Auth.ROLE_CAN_MANAGE_AUTHENTICATORS, Name = "Can Manage Authenticators" },
+            new AuthenticatorRoleVM() { Id = "CMS", Role = Auth.ROLE_CAN_MANAGE_ASSIGNMENTS, Name = "Can Manage Assignments" },
+            new AuthenticatorRoleVM() { Id = "CME", Role = Auth.ROLE_CAN_MANAGE_EMPLOYEES, Name = "Can Manage Employees" },
+            new AuthenticatorRoleVM() { Id = "CEI", Role = Auth.ROLE_CAN_EXPORT_IMPORT_DOCUMENTS, Name = "Can Export and Import Documents" }
         };
 
         public string CalculateMD5Hash(string input)
@@ -39,9 +39,18 @@ namespace ASWERP.Models
         public bool DoAuthentication(string userName, string passwords)
         {
             var _authenticated = Loader.GetAuthenticators().Any(x => x.Login.Trim() == userName.Trim() && x.Hash.ToLower() == CalculateMD5Hash(passwords.Trim()).ToLower());
+            var _authenticatedUser = Loader.GetAuthenticators().FirstOrDefault(x => x.Login.Trim() == userName.Trim() && x.Hash.ToLower() == CalculateMD5Hash(passwords.Trim()).ToLower());
 
             if (_authenticated)
+            {
+                Program.CurrentUser = new Auth()
+                {
+                    LoginId = _authenticatedUser.Guid,
+                    LoginRoles = _authenticatedUser.Roles
+                };
+
                 return true;
+            }  
             else
                 return false;
         }

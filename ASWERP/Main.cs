@@ -57,6 +57,21 @@ namespace ASWERP
             this.ProviderTitle.ValueMember = "GuidId";
 
             Forms = new List<Form>();
+
+            // Check user roles
+            if (Program.CurrentUser.HasRole(Auth.ROLE_CAN_MANAGE_AUTHENTICATORS))
+                tsmUsersRights.Visible = true;
+            else
+                tsmUsersRights.Visible = false;
+
+            if (Program.CurrentUser.HasRole(Auth.ROLE_CAN_MANAGE_EMPLOYEES))
+                tsmiUsersMgt.Visible = true;
+            else
+                tsmiUsersMgt.Visible = false;
+            
+            //
+
+            searchToolStripMenuItem.Visible = false;
         }
 
         private void exitMnuItem_Click(object sender, EventArgs e)
@@ -678,9 +693,22 @@ namespace ASWERP
         private void tcMain_Selected(object sender, TabControlEventArgs e)
         { 
             if (e.TabPage.Name == "tpAssignment")
+            {
+                searchToolStripMenuItem.Visible = false;
                 this.AssignedAssetName.DataSource = Loader.AssetsSelectList();
-            if (e.TabPage.Name == "tpAssetsMgt")
+            } 
+            else if (e.TabPage.Name == "tpAssetsMgt")
+            {
+                searchToolStripMenuItem.Visible = false;
                 this.ProviderTitle.DataSource = Loader.ProvidersSelectList();
+            }
+            else if (e.TabPage.Name == "tpAssetHandover")
+            {
+                searchToolStripMenuItem.Visible = true;
+            } else
+            {
+                searchToolStripMenuItem.Visible = false;
+            }
         }
 
         private void dgvEmployeeAssetsAssignment_CellClick(object sender, DataGridViewCellEventArgs e)
